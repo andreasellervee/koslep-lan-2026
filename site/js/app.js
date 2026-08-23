@@ -564,8 +564,13 @@ createApp({
       title: {
         text: String(meta.roundsTotal),
         subtext: 'rounds played',
-        left: 'center',
-        top: '39%',
+        // anchor at exactly 50% and let textAlign centre the text on that point.
+        // `left: 'center'` would centre the block first and then re-anchor the
+        // text inside it, shifting everything left by half the block width.
+        // padding:0 removes the default 5px, which offsets it again.
+        left: '50%',
+        top: '36.5%',
+        padding: 0,
         textAlign: 'center',
         textStyle: { color: C.text, fontSize: 30, fontWeight: 700, fontFamily: MONO },
         subtextStyle: { color: C.faint, fontSize: 10, fontFamily: MONO },
