@@ -1,0 +1,143 @@
+{
+  "matchid": 21,
+  "map": "de_mirage",
+  "rounds": 29,
+  "winner": "AWISAVI",
+  "score": {
+    "AWISAVI": 16,
+    "SVEN": 13
+  },
+  "rounds_secured": {
+    "CT": 13,
+    "T": 16
+  },
+  "overtime": true,
+  "half_scores": {
+    "first": {
+      "AWISAVI": 5,
+      "SVEN": 7
+    },
+    "second": {
+      "AWISAVI": 7,
+      "SVEN": 5
+    }
+  },
+  "teams": [
+    {
+      "name": "AWISAVI",
+      "match_label": "team_lokenslok",
+      "starting_side": "CT",
+      "rounds_won": 16,
+      "players": [
+        {
+          "name": "lokenslok",
+          "steamid64": "76561198077045826",
+          "kills": 30,
+          "deaths": 20,
+          "assists": 8,
+          "hs_percent": 43.3,
+          "adr": 102.2,
+          "utility_damage": 162
+        },
+        {
+          "name": "obune",
+          "steamid64": "76561197982996192",
+          "kills": 26,
+          "deaths": 18,
+          "assists": 13,
+          "hs_percent": 69.2,
+          "adr": 109.2,
+          "utility_damage": 362
+        },
+        {
+          "name": "MFINGJONES",
+          "steamid64": "76561197998387249",
+          "kills": 21,
+          "deaths": 24,
+          "assists": 5,
+          "hs_percent": 33.3,
+          "adr": 83.2,
+          "utility_damage": 203
+        },
+        {
+          "name": "Lõvikuningas",
+          "steamid64": "76561198168583670",
+          "kills": 20,
+          "deaths": 20,
+          "assists": 6,
+          "hs_percent": 50.0,
+          "adr": 73.9,
+          "utility_damage": 47
+        },
+        {
+          "name": "kaneelirull",
+          "steamid64": "76561198079175309",
+          "kills": 18,
+          "deaths": 21,
+          "assists": 6,
+          "hs_percent": 27.8,
+          "adr": 66.1,
+          "utility_damage": 2
+        }
+      ]
+    },
+    {
+      "name": "SVEN",
+      "match_label": "team_Honeybadger",
+      "starting_side": "T",
+      "rounds_won": 13,
+      "players": [
+        {
+          "name": "Karlashnikov",
+          "steamid64": "76561198035606699",
+          "kills": 29,
+          "deaths": 23,
+          "assists": 4,
+          "hs_percent": 37.9,
+          "adr": 79.7,
+          "utility_damage": 46
+        },
+        {
+          "name": "Honeybadger",
+          "steamid64": "76561198154279807",
+          "kills": 24,
+          "deaths": 22,
+          "assists": 6,
+          "hs_percent": 45.8,
+          "adr": 99.5,
+          "utility_damage": 0
+        },
+        {
+          "name": "raidukas1337",
+          "steamid64": "76561197994899936",
+          "kills": 19,
+          "deaths": 25,
+          "assists": 9,
+          "hs_percent": 42.1,
+          "adr": 82.4,
+          "utility_damage": 15
+        },
+        {
+          "name": "Rahvuslind",
+          "steamid64": "76561198113963807",
+          "kills": 17,
+          "deaths": 22,
+          "assists": 7,
+          "hs_percent": 58.8,
+          "adr": 68.7,
+          "utility_damage": 123
+        },
+        {
+          "name": "SplashBrothers",
+          "steamid64": "76561198090315920",
+          "kills": 14,
+          "deaths": 24,
+          "assists": 7,
+          "hs_percent": 35.7,
+          "adr": 59.6,
+          "utility_damage": 212
+        }
+      ]
+    }
+  ]
+}

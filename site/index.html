@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>KOSLEP LAN 2026</title>
+    <meta
+      name="description"
+      content="Full statistics from the KOSLEP LAN 2026 CS2 tournament — 15 maps, 342 rounds, 10 players."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <div id="app" v-cloak>
+      <nav class="nav">
+        <div class="wrap nav-inner">
+          <div class="nav-brand">KOSLEP LAN <span>2026</span></div>
+          <div class="nav-links">
+            <a
+              v-for="s in sections"
+              :key="s.id"
+              :href="'#' + s.id"
+              :class="{ active: activeSection === s.id }"
+              >{{ s.label }}</a
+            >
+          </div>
+        </div>
+      </nav>
+
+      <main>
+        <!-- ============================ OVERVIEW ============================ -->
+        <section id="overview" class="section" style="padding-top: 0">
+          <div class="wrap">
+            <div class="hero">
+              <div class="hero-eyebrow">Counter-Strike 2</div>
+              <h1>Koslep LAN<br />2026</h1>
+              <div class="hero-sub">
+                {{ meta.matchCount }} maps &middot; {{ meta.roundsTotal }} rounds
+                &middot; {{ meta.playerCount }} players
+              </div>
+            </div>
+
+            <!-- scoreline -->
+            <div class="scoreline">
+              <div class="side left">
+                <div class="team-name sven">SVEN</div>
+                <div class="team-tag">Champions</div>
+                <div class="av-stack">
+                  <img
+                    v-for="p in rosterOf('SVEN')"
+                    :key="p.name"
+                    class="av sm"
+                    :src="avatar(p)"
+                    :alt="p.name"
+                    :title="p.name"
+                    loading="lazy"
+                  />
+                </div>
+              </div>
+              <div class="center">
+                <div class="vs">Maps</div>
+                <div class="maps">
+                  <span class="c-sven">{{ meta.seriesScore.SVEN }}</span
+                  ><span style="color: var(--text-faint)">–</span
+                  ><span class="c-awisavi">{{ meta.seriesScore.AWISAVI }}</span>
+                </div>
+                <div class="champ-badge">★ SVEN take the LAN</div>
+              </div>
+              <div class="side right">
+                <div class="team-name awisavi">AWISAVI</div>
+                <div class="team-tag">Runners-up</div>
+                <div class="av-stack">
+                  <img
+                    v-for="p in rosterOf('AWISAVI')"
+                    :key="p.name"
+                    class="av sm"
+                    :src="avatar(p)"
+                    :alt="p.name"
+                    :title="p.name"
+                    loading="lazy"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <!-- headline tiles: two featured, then supporting -->
+            <div class="grid cols-2" style="margin-top: 16px">
+              <div class="tile feature gold">
+                <div class="k">Rounds won</div>
+                <div class="v">
+                  <span class="c-sven">{{ meta.roundTotals.SVEN }}</span
+                  ><small> – </small
+                  ><span class="c-awisavi">{{ meta.roundTotals.AWISAVI }}</span>
+                </div>
+                <div class="d">
+                  A 10–5 map score built on a
+                  <b>{{ meta.roundTotals.SVEN - meta.roundTotals.AWISAVI }}-round</b>
+                  gap over the whole LAN.
+                </div>
+              </div>
+              <div class="tile feature sven">
+                <div class="k">Top fragger</div>
+                <div class="v feature-with-face">
+                  <img class="av lg ring-sven" :src="avatar(topKills)" :alt="topKills.name" />
+                  <span>{{ topKills.kills }}<small> kills</small></span>
+                </div>
+                <div class="d">
+                  <b>{{ topKills.name }}</b> — {{ topKills.adr }} ADR,
+                  {{ topKills.kd }} K/D, {{ topKills.hs }}% HS
+                </div>
+              </div>
+            </div>
+
+            <div class="grid cols-3" style="margin-top: 16px">
+              <div class="tile awisavi">
+                <div class="k">Best headshot rate</div>
+                <div class="v">{{ topHs.hs }}<small>%</small></div>
+                <div class="d">
+                  <b>{{ topHs.name }}</b> — {{ topHs.hsKills }} of
+                  {{ topHs.kills }} kills
+                </div>
+              </div>
+              <div class="tile">
+                <div class="k">Longest alive</div>
+                <div class="v">{{ topAlive.alivePerRound }}<small>s</small></div>
+                <div class="d">
+                  <b>{{ topAlive.name }}</b> — {{ hms(topAlive.liveTime) }} alive
+                  across {{ meta.roundsTotal }} rounds
+                </div>
+              </div>
+              <div class="tile">
+                <div class="k">Aces all LAN</div>
+                <div class="v">0</div>
+                <div class="d">
+                  342 rounds, not a single 5k. {{ totalMulti('multi4k') }} quad
+                  kills though.
+                </div>
+              </div>
+            </div>
+
+            <div class="subhead">The margin</div>
+            <div class="callout">
+              <div class="big">{{ meta.damageGap }}</div>
+              <div>
+                <h4>Damage separating the two teams</h4>
+                <p>
+                  Across 342 rounds SVEN dealt
+                  <b>{{ fmt(teamByName('SVEN').totals.damage) }}</b> and AWISAVI
+                  dealt <b>{{ fmt(teamByName('AWISAVI').totals.damage) }}</b> — a gap of
+                  {{ meta.damageGap }}, or about
+                  {{ (meta.damageGap / meta.roundsTotal).toFixed(2) }} damage per
+                  round. AWISAVI actually threw more utility and flashed more
+                  enemies. SVEN's 10–5 came from converting the close maps, not
+                  from out-shooting anyone.
+                </p>
+              </div>
+            </div>
+
+            <div class="subhead">Most valuable player</div>
+            <div class="mvp">
+              <div class="mvp-left">
+                <div style="display: flex; gap: 18px; align-items: center">
+                  <img
+                    class="av xl"
+                    :class="'ring-' + mvp.team.toLowerCase()"
+                    :src="avatar(mvp)"
+                    :alt="mvp.name"
+                  />
+                  <div>
+                    <div class="label">★ LAN MVP</div>
+                    <div class="name">{{ mvp.name }}</div>
+                    <span class="pill" :class="mvp.team.toLowerCase()">{{ mvp.team }}</span>
+                  </div>
+                </div>
+                <p>
+                  Led the LAN in kills, ADR and clutch kills, and won
+                  {{ mvp.entryPct }}% of his {{ mvp.entryCount }} entry duels —
+                  the best entry rate of anyone. His 33–19 on Inferno (138.0 ADR)
+                  is the single best map played all LAN.
+                  <br /><br />
+                  <span style="color: var(--text-faint)"
+                    >Most MVP rounds went to {{ mvpRoundLeader.name }} with
+                    {{ mvpRoundLeader.mvps }}.</span
+                  >
+                </p>
+              </div>
+              <div class="mvp-right">
+                <div class="mvp-stat" v-for="s in mvpStats" :key="s.k">
+                  <div class="k">{{ s.k }}</div>
+                  <div class="v">{{ s.v }}</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="subhead">Podium &middot; by K/D</div>
+            <div class="podium">
+              <div
+                v-for="(p, i) in podium"
+                :key="p.name"
+                class="podium-card"
+                :class="'p' + (i + 1)"
+              >
+                <div class="rank">{{ i + 1 }}</div>
+                <div style="display: flex; gap: 13px; align-items: center">
+                  <img
+                    class="av md"
+                    :class="'ring-' + p.team.toLowerCase()"
+                    :src="avatar(p)"
+                    :alt="p.name"
+                  />
+                  <div style="min-width: 0">
+                    <div class="pname">{{ p.name }}</div>
+                    <span class="pill" :class="p.team.toLowerCase()">{{ p.team }}</span>
+                  </div>
+                </div>
+                <div class="pstat">
+                  <b>{{ p.kd }}</b> K/D &nbsp;·&nbsp; <b>{{ p.adr }}</b> ADR
+                  &nbsp;·&nbsp; <b>{{ p.kills }}</b> kills
+                </div>
+              </div>
+            </div>
+
+            <div class="subhead">Records &amp; oddities</div>
+            <div class="panel">
+              <div class="rec-list two-col">
+                <div v-for="o in oddities" :key="o.t" class="rec">
+                  <div class="rec-v" :style="{ color: o.c }">{{ o.v }}</div>
+                  <div>
+                    <div class="rec-t">
+                      <img
+                        v-if="o.p"
+                        class="av xs"
+                        :src="avatar(o.p)"
+                        :alt="o.p.name"
+                        loading="lazy"
+                      />{{ o.t }}
+                    </div>
+                    <div class="rec-d">{{ o.d }}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============================ TEAMS ============================ -->
+        <section id="teams" class="section">
+          <div class="wrap">
+            <div class="section-head">
+              <div>
+                <div class="eyebrow">Section 02</div>
+                <h2>Team stats</h2>
+              </div>
+              <p>
+                Head-to-head aggregates, map records, and how each side's output
+                moved across the 15 maps.
+              </p>
+            </div>
+
+            <div class="grid cols-2">
+              <div
+                v-for="t in teams"
+                :key="t.name"
+                class="panel"
+                :style="{ borderColor: teamColor(t.name) + '55' }"
+              >
+                <div
+                  style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px"
+                >
+                  <div>
+                    <div
+                      style="font-size: 30px; text-transform: uppercase; line-height: 1"
+                      :style="{ color: teamColor(t.name) }"
+                    >
+                      {{ t.name }}
+                    </div>
+                    <div class="pstat" style="margin-top: 6px; white-space: nowrap">
+                      <b>{{ t.mapsWon }}–{{ t.mapsLost }}</b> maps &nbsp;·&nbsp;
+                      <b>{{ t.roundsWon }}–{{ t.roundsLost }}</b> rds
+                    </div>
+                  </div>
+                  <span class="pill" :class="t.name === meta.champion ? 'win' : 'loss'">
+                    {{ t.name === meta.champion ? 'Champions' : 'Runners-up' }}
+                  </span>
+                </div>
+
+                <div class="av-stack" style="margin: 16px 0 4px">
+                  <img
+                    v-for="p in rosterOf(t.name)"
+                    :key="p.name"
+                    class="av md"
+                    :src="avatar(p)"
+                    :alt="p.name"
+                    :title="p.name + ' — ' + p.kd + ' K/D'"
+                    loading="lazy"
+                  />
+                </div>
+
+                <div class="pcard-stats" style="margin-top: 16px">
+                  <div><span>Total kills</span><b>{{ fmt(t.totals.kills) }}</b></div>
+                  <div><span>Total damage</span><b>{{ fmt(t.totals.damage) }}</b></div>
+                  <div><span>HS%</span><b>{{ t.hs }}%</b></div>
+                  <div><span>Accuracy</span><b>{{ t.accuracy }}%</b></div>
+                  <div><span>Entry win%</span><b>{{ t.entryPct }}%</b></div>
+                  <div><span>Util dmg</span><b>{{ fmt(t.totals.utilDmg) }}</b></div>
+                  <div><span>Enemies flashed</span><b>{{ t.totals.enemiesFlashed }}</b></div>
+                  <div><span>Clutch kills</span><b>{{ t.totals.clutchKills }}</b></div>
+                  <div><span>Objectives</span><b>{{ t.totals.objective }}</b></div>
+                  <div><span>Time alive</span><b>{{ hms(t.totals.liveTime) }}</b></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="subhead">Head to head &middot; LAN totals</div>
+            <div class="panel">
+              <div class="compare-row" v-for="c in compareRows" :key="c.label">
+                <div class="val left">{{ c.a }}</div>
+                <div class="bar-track rtl">
+                  <div
+                    class="bar-fill sven"
+                    :style="{ width: barPct(c.aRaw, c.bRaw) + '%' }"
+                  ></div>
+                </div>
+                <div class="label">{{ c.label }}</div>
+                <div class="bar-track">
+                  <div
+                    class="bar-fill awisavi"
+                    :style="{ width: barPct(c.bRaw, c.aRaw) + '%' }"
+                  ></div>
+                </div>
+                <div class="val right">{{ c.b }}</div>
+              </div>
+            </div>
+
+            <div class="subhead">Map records</div>
+            <div class="map-grid">
+              <div v-for="m in mapRecords" :key="m.map" class="map-cell">
+                <div class="mname">{{ prettyMap(m.map) }}</div>
+                <div class="mplayed">
+                  played {{ m.played }}× &middot; {{ mapVerdict(m) }}
+                </div>
+                <div class="mrec">
+                  <span class="c-sven">{{ m.SVEN }}</span>
+                  <span style="color: var(--text-faint); font-size: 14px">–</span>
+                  <span class="c-awisavi">{{ m.AWISAVI }}</span>
+                </div>
+                <div class="map-split">
+                  <i class="s" :style="{ width: (100 * m.SVEN) / m.played + '%' }"></i>
+                  <i class="a" :style="{ width: (100 * m.AWISAVI) / m.played + '%' }"></i>
+                </div>
+              </div>
+            </div>
+
+            <div class="subhead">Progression across the LAN</div>
+            <div class="controls">
+              <button
+                v-for="m in teamMetrics"
+                :key="m.key"
+                class="chip"
+                :class="{ active: teamMetric === m.key }"
+                @click="teamMetric = m.key"
+              >
+                {{ m.label }}
+              </button>
+            </div>
+            <div class="panel">
+              <div class="panel-title">
+                {{ currentTeamMetric.label }} per map, in play order &mdash; filled
+                markers are map wins
+              </div>
+              <e-chart :option="progressionOption" :height="360" />
+            </div>
+
+            <div class="subhead">Round differential per map</div>
+            <div class="panel">
+              <div class="panel-title">
+                <span class="c-sven">SVEN</span> rounds won minus rounds lost
+                &mdash; above the line is a map win for SVEN
+              </div>
+              <e-chart :option="diffOption" :height="290" />
+            </div>
+
+            <div class="subhead">Side balance &amp; map outcomes</div>
+            <div class="grid cols-2">
+              <div class="panel">
+                <div class="panel-title">
+                  Rounds won by side, all 15 maps combined
+                </div>
+                <e-chart :option="sideOption" :height="270" />
+              </div>
+              <div class="panel">
+                <div class="panel-title">Map win share</div>
+                <e-chart :option="mapShareOption" :height="270" />
+              </div>
+            </div>
+
+            <div class="subhead">Best &amp; worst maps</div>
+            <div class="grid cols-2">
+              <div v-for="t in teams" :key="t.name" class="panel">
+                <div class="panel-title" :style="{ color: teamColor(t.name) }">
+                  {{ t.name }}
+                </div>
+                <div class="bw">
+                  <div class="bw-row">
+                    <span class="pill win">Best</span>
+                    <div>
+                      <b>{{ prettyMap(t.best.map) }}</b>
+                      <span class="bw-score"
+                        >{{ t.best.roundsWon }}–{{ t.best.roundsLost }}</span
+                      >
+                      <div class="bw-d">
+                        Match {{ t.best.matchId }} &middot; started
+                        {{ t.best.startingSide }} &middot; {{ t.best.avgAdr }} avg ADR
+                      </div>
+                    </div>
+                  </div>
+                  <div class="bw-row">
+                    <span class="pill loss">Worst</span>
+                    <div>
+                      <b>{{ prettyMap(t.worst.map) }}</b>
+                      <span class="bw-score"
+                        >{{ t.worst.roundsWon }}–{{ t.worst.roundsLost }}</span
+                      >
+                      <div class="bw-d">
+                        Match {{ t.worst.matchId }} &middot; started
+                        {{ t.worst.startingSide }} &middot; {{ t.worst.avgAdr }} avg ADR
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============================ PLAYERS ============================ -->
+        <section id="players" class="section">
+          <div class="wrap">
+            <div class="section-head">
+              <div>
+                <div class="eyebrow">Section 03</div>
+                <h2>Player stats</h2>
+              </div>
+              <p>
+                Every player measured against the other nine. Pick a metric to
+                re-rank the field, or sort the full table by any column.
+              </p>
+            </div>
+
+            <div class="subhead">Compare a single stat</div>
+            <div class="controls">
+              <button
+                v-for="m in playerMetrics"
+                :key="m.key"
+                class="chip"
+                :class="{ active: playerMetric === m.key }"
+                @click="playerMetric = m.key"
+              >
+                {{ m.label }}
+              </button>
+            </div>
+            <div class="panel">
+              <div class="panel-title">{{ currentPlayerMetric.desc }}</div>
+              <e-chart :option="rankingOption" :height="380" />
+            </div>
+
+            <div class="subhead">Impact map &middot; two stats at once</div>
+            <div class="controls">
+              <button
+                v-for="p in scatterPresets"
+                :key="p.label"
+                class="chip"
+                :class="{ active: scatterPreset === p.label }"
+                @click="scatterPreset = p.label"
+              >
+                {{ p.label }}
+              </button>
+            </div>
+            <div class="panel">
+              <div class="panel-title">
+                {{ currentScatter.x.label }} against {{ currentScatter.y.label }} —
+                hover a dot for the player
+              </div>
+              <e-chart :option="scatterOption" :height="400" />
+            </div>
+
+            <div class="subhead">Profile comparison</div>
+            <div class="note" style="margin-bottom: 14px">
+              Each axis is scaled against the field &mdash; the outer ring is the
+              best value any player recorded for that stat, so the shape shows
+              <b>role</b>, not absolute quality. Click names to add or remove
+              players.
+            </div>
+            <div class="controls">
+              <button
+                v-for="p in players"
+                :key="p.name"
+                class="chip"
+                :class="{ active: radarSelection.includes(p.name) }"
+                @click="toggleRadar(p.name)"
+              >
+                {{ p.name }}
+              </button>
+            </div>
+            <div class="panel">
+              <e-chart :option="radarOption" :height="440" />
+            </div>
+
+            <div class="subhead">Clutch &amp; duels</div>
+            <div class="note" style="margin-bottom: 14px">
+              A clutch is a round the player finished alone against one or two
+              opponents. <b>1v1</b> and <b>1v2</b> show the record in those
+              situations; <b>clutch kills</b> counts every kill taken as the last
+              man alive, so it rises with attempts as well as with wins.
+            </div>
+            <div class="grid cols-2 clutch-grid">
+              <div class="panel">
+                <div class="panel-title">
+                  Clutch situations faced, and how many were won
+                </div>
+                <e-chart :option="clutchOption" :height="380" />
+              </div>
+              <div class="panel">
+                <div class="panel-title">Clutch record</div>
+                <div class="rec-list">
+                  <div
+                    v-for="p in clutchRanked"
+                    :key="p.name"
+                    class="clutch-row"
+                  >
+                    <img class="av sm" :class="'ring-' + p.team.toLowerCase()" :src="avatar(p)" :alt="p.name" loading="lazy" />
+                    <div class="cr-name">{{ p.name }}</div>
+                    <div class="cr-cell">
+                      <span>1v1</span><b>{{ p.v1Wins }}/{{ p.v1 }}</b>
+                    </div>
+                    <div class="cr-cell">
+                      <span>1v2</span><b>{{ p.v2Wins }}/{{ p.v2 }}</b>
+                    </div>
+                    <div class="cr-cell">
+                      <span>Kills</span><b>{{ p.clutchKills }}</b>
+                    </div>
+                    <div class="cr-pct" :style="{ color: pctColor(p.clutchPct) }">
+                      {{ p.clutchPct }}%
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="subhead">Weapon specialists</div>
+            <div class="grid cols-4" style="margin-bottom: 16px">
+              <div
+                v-for="s in specialists"
+                :key="s.label"
+                class="tile"
+                :class="s.accent"
+              >
+                <div class="k">
+                  {{ s.label
+                  }}<span v-if="s.players.length > 1" class="tie-tag"
+                    >tied ×{{ s.players.length }}</span
+                  >
+                </div>
+                <div class="v feature-with-face" style="font-size: 26px">
+                  <div class="av-stack">
+                    <img
+                      v-for="p in s.players"
+                      :key="p.name"
+                      class="av sm"
+                      :src="avatar(p)"
+                      :alt="p.name"
+                      :title="p.name"
+                      loading="lazy"
+                    />
+                  </div>
+                  <span>{{ s.value }}</span>
+                </div>
+                <div class="d">
+                  <b>{{ s.names.join(', ') }}</b> — {{ s.note }}
+                </div>
+              </div>
+            </div>
+            <div class="panel">
+              <div class="panel-title">
+                Kills by weapon class &mdash; pistols, snipers, knife and taser
+              </div>
+              <e-chart :option="weaponOption" :height="380" />
+            </div>
+
+            <div class="subhead">Full leaderboard</div>
+            <div class="table-scroll">
+              <table>
+                <thead>
+                  <tr>
+                    <th
+                      v-for="c in columns"
+                      :key="c.key"
+                      :class="{ sorted: sortKey === c.key, asc: sortKey === c.key && sortAsc }"
+                      @click="sortBy(c.key)"
+                      :title="c.title"
+                    >
+                      {{ c.label }}
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="p in sortedPlayers" :key="p.name">
+                    <td>
+                      <span class="tname">
+                        <img class="av xs" :src="avatar(p)" :alt="p.name" loading="lazy" />
+                        {{ p.name }}
+                      </span>
+                    </td>
+                    <td>
+                      <span class="pill" :class="p.team.toLowerCase()">{{ p.team }}</span>
+                    </td>
+                    <td
+                      v-for="c in columns.slice(2)"
+                      :key="c.key"
+                      :class="{ hl: isLeader(c.key, p) }"
+                    >
+                      {{ c.fmt ? c.fmt(p[c.key]) : p[c.key] }}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="note" style="margin-top: 14px">
+              Click any column header to sort; gold values lead the field.
+              <b>Entry%</b> is entry duels won of duels taken, <b>Clutch</b> is
+              kills recorded as the last man alive, and <b>Acc%</b> is shots on
+              target of shots fired.
+            </div>
+
+            <div class="subhead">Player cards</div>
+            <div class="player-grid">
+              <div v-for="(p, i) in players" :key="p.name" class="pcard">
+                <header>
+                  <div style="display: flex; gap: 12px; align-items: center; min-width: 0">
+                    <img
+                      class="av md"
+                      :class="'ring-' + p.team.toLowerCase()"
+                      :src="avatar(p)"
+                      :alt="p.name"
+                      loading="lazy"
+                    />
+                    <div style="min-width: 0">
+                      <div class="pn">{{ p.name }}</div>
+                      <div class="pr">
+                        #{{ i + 1 }} by K/D &middot; {{ p.team }}
+                      </div>
+                    </div>
+                  </div>
+                  <span class="pill" :class="p.team.toLowerCase()">{{ p.team }}</span>
+                </header>
+
+                <div class="pcard-stats">
+                  <div><span>Kills</span><b>{{ p.kills }}</b></div>
+                  <div><span>Deaths</span><b>{{ p.deaths }}</b></div>
+                  <div><span>K/D</span><b>{{ p.kd }}</b></div>
+                  <div><span>ADR</span><b>{{ p.adr }}</b></div>
+                  <div><span>HS%</span><b>{{ p.hs }}%</b></div>
+                  <div><span>Entry%</span><b>{{ p.entryPct }}%</b></div>
+                  <div><span>Clutch K</span><b>{{ p.clutchKills }}</b></div>
+                  <div><span>Assists</span><b>{{ p.assists }}</b></div>
+                </div>
+
+                <div class="pcard-maps">
+                  <div class="pm best">
+                    <span class="pm-k">Best map</span>
+                    <span class="pm-v">{{ prettyMap(bestMap(p).map) }}</span>
+                    <span class="pm-d">
+                      {{ bestMap(p).adr }} ADR &middot; {{ bestMap(p).kills }}–{{ bestMap(p).deaths }}
+                    </span>
+                  </div>
+                  <div class="pm worst">
+                    <span class="pm-k">Worst map</span>
+                    <span class="pm-v">{{ prettyMap(worstMap(p).map) }}</span>
+                    <span class="pm-d">
+                      {{ worstMap(p).adr }} ADR &middot; {{ worstMap(p).kills }}–{{ worstMap(p).deaths }}
+                    </span>
+                  </div>
+                </div>
+
+                <div class="spark-wrap">
+                  <div class="sl">
+                    <span>ADR by map &middot; 15 maps</span>
+                    <span
+                      >{{ Math.min(...p.games.map((g) => g.adr)) }} –
+                      {{ Math.max(...p.games.map((g) => g.adr)) }}</span
+                    >
+                  </div>
+                  <e-chart :option="sparkOption(p)" :height="70" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============================ MATCHES ============================ -->
+        <section id="matches" class="section">
+          <div class="wrap">
+            <div class="section-head">
+              <div>
+                <div class="eyebrow">Section 04</div>
+                <h2>All matches</h2>
+              </div>
+              <p>
+                All 15 maps in play order. Click a card to open the full
+                scoreboard for that map.
+              </p>
+            </div>
+
+            <div class="controls">
+              <button
+                class="chip"
+                :class="{ active: matchFilter === 'all' }"
+                @click="matchFilter = 'all'"
+              >
+                All {{ matches.length }}
+              </button>
+              <button
+                class="chip"
+                :class="{ active: matchFilter === 'SVEN' }"
+                @click="matchFilter = 'SVEN'"
+              >
+                SVEN wins ({{ meta.seriesScore.SVEN }})
+              </button>
+              <button
+                class="chip"
+                :class="{ active: matchFilter === 'AWISAVI' }"
+                @click="matchFilter = 'AWISAVI'"
+              >
+                AWISAVI wins ({{ meta.seriesScore.AWISAVI }})
+              </button>
+              <button
+                class="chip"
+                :class="{ active: matchFilter === 'ot' }"
+                @click="matchFilter = 'ot'"
+              >
+                Overtime ({{ meta.overtimes }})
+              </button>
+              <button class="chip" @click="toggleAll">
+                {{ openMatches.length === matches.length ? 'Collapse all' : 'Expand all' }}
+              </button>
+            </div>
+
+            <div class="match-grid">
+              <div
+                v-for="m in filteredMatches"
+                :key="m.id"
+                class="mcard"
+                :class="{ open: openMatches.includes(m.id) }"
+              >
+                <button class="mcard-head" @click="toggleMatch(m.id)">
+                  <div class="mcard-top">
+                    <div class="mcard-map">{{ prettyMap(m.map) }}</div>
+                    <div class="mcard-id">Match {{ m.id }}</div>
+                  </div>
+                  <div class="mcard-score">
+                    <div>
+                      <div class="t c-sven">SVEN</div>
+                      <div class="n" :class="m.winner === 'SVEN' ? 'w' : 'l'">
+                        {{ m.score.SVEN }}
+                      </div>
+                    </div>
+                    <div style="color: var(--text-faint); font-family: var(--mono)">–</div>
+                    <div class="right">
+                      <div class="t c-awisavi">AWISAVI</div>
+                      <div class="n" :class="m.winner === 'AWISAVI' ? 'w' : 'l'">
+                        {{ m.score.AWISAVI }}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="mcard-meta">
+                    <span class="pill" :class="m.winner.toLowerCase()">{{ m.winner }} win</span>
+                    <span v-if="m.overtime" class="pill ot">Overtime</span>
+                    <span>{{ m.rounds }} rounds</span>
+                    <span>·</span>
+                    <span>halves {{ halfText(m) }}</span>
+                    <span style="margin-left: auto" class="expand-hint">
+                      {{ openMatches.includes(m.id) ? '▲ hide' : '▼ scoreboard' }}
+                    </span>
+                  </div>
+                </button>
+
+                <div class="mcard-body">
+                  <div v-for="t in m.teams" :key="t.name" class="sb-team">
+                    <h5 :style="{ color: teamColor(t.name) }">
+                      <span
+                        >{{ t.name }}
+                        <span style="color: var(--text-faint)"
+                          >· started {{ t.startingSide }}</span
+                        ></span
+                      >
+                      <span :class="t.won ? 'pill win' : 'pill loss'">
+                        {{ t.roundsWon }} rounds
+                      </span>
+                    </h5>
+                    <table class="sb">
+                      <thead>
+                        <tr>
+                          <th>Player</th>
+                          <th>K</th>
+                          <th>D</th>
+                          <th>A</th>
+                          <th>+/−</th>
+                          <th>ADR</th>
+                          <th>HS%</th>
+                          <th>UD</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr v-for="p in t.players" :key="p.name">
+                          <td>
+                            <span class="tname">
+                              <img
+                                class="av xs"
+                                :src="avatarBySteam(p.name)"
+                                :alt="p.name"
+                                loading="lazy"
+                              />
+                              {{ p.name }}
+                            </span>
+                          </td>
+                          <td>{{ p.kills }}</td>
+                          <td>{{ p.deaths }}</td>
+                          <td>{{ p.assists }}</td>
+                          <td
+                            :style="{
+                              color:
+                                p.kills - p.deaths > 0
+                                  ? 'var(--good)'
+                                  : p.kills - p.deaths < 0
+                                  ? 'var(--bad)'
+                                  : 'var(--text-dim)',
+                            }"
+                          >
+                            {{ p.kills - p.deaths > 0 ? '+' : '' }}{{ p.kills - p.deaths }}
+                          </td>
+                          <td>{{ p.adr }}</td>
+                          <td>{{ p.hs }}%</td>
+                          <td>{{ p.utilDmg }}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </main>
+
+      <footer class="foot">
+        <div
+          class="wrap"
+          style="display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; width: 100%"
+        >
+          <div>Koslep LAN 2026</div>
+          <div>
+            {{ meta.matchCount }} maps · {{ meta.roundsTotal }} rounds ·
+            {{ meta.playerCount }} players
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@3.5.13/dist/vue.global.prod.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js"></script>
+    <script src="js/data.js"></script>
+    <script src="js/app.js"></script>
+  </body>
+</html>
