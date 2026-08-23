@@ -37,9 +37,12 @@ Then visit <http://localhost:4173>.
 **Vercel** — `vercel.json` sets the output directory to `site` with no build
 command, so it deploys as-is.
 
-**GitHub Pages** — serve the `site/` folder from the default branch, or move
-its contents to the repo root. All asset paths are relative, so it works from
-a subpath like `username.github.io/koslep-lan-2026/` without changes.
+**GitHub Pages** — `.github/workflows/deploy-pages.yml` publishes the `site/`
+folder on every push to `main` that touches it. Enable it once under
+**Settings → Pages → Build and deployment → Source: GitHub Actions**; branch
+deployment is not used, because it can only serve the repo root or `/docs`.
+All asset paths are relative, so the site works from a subpath like
+`username.github.io/koslep-lan-2026/` without changes.
 
 ## Repository layout
 
