@@ -1,6 +1,8 @@
+---
 name: Deploy to GitHub Pages
 
-on:
+# quoted so YAML 1.1 parsers do not read the key as the boolean `true`
+"on":
   push:
     branches: [main]
     # the site is entirely static, so only rebuild when it or its data changes
