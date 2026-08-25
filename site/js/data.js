@@ -646,6 +646,15 @@ const LAN_DATA = {
  ],
  "players": [
   {
+   "entryKills": 43,
+   "entryKillWins": 29,
+   "entryKillWinPct": 67.4,
+   "entryDeaths": 26,
+   "entryDeathWins": 7,
+   "entryDeathWinPct": 26.9,
+   "entryDuels": 69,
+   "entryRoundWins": 36,
+   "entryRoundWinPct": 52.2,
    "name": "Honeybadger",
    "team": "SVEN",
    "steamid64": "76561198154279807",
@@ -869,6 +878,15 @@ const LAN_DATA = {
    ]
   },
   {
+   "entryKills": 39,
+   "entryKillWins": 25,
+   "entryKillWinPct": 64.1,
+   "entryDeaths": 25,
+   "entryDeathWins": 9,
+   "entryDeathWinPct": 36.0,
+   "entryDuels": 64,
+   "entryRoundWins": 34,
+   "entryRoundWinPct": 53.1,
    "name": "Rahvuslind",
    "team": "SVEN",
    "steamid64": "76561198113963807",
@@ -1092,6 +1110,15 @@ const LAN_DATA = {
    ]
   },
   {
+   "entryKills": 29,
+   "entryKillWins": 20,
+   "entryKillWinPct": 69.0,
+   "entryDeaths": 33,
+   "entryDeathWins": 8,
+   "entryDeathWinPct": 24.2,
+   "entryDuels": 62,
+   "entryRoundWins": 28,
+   "entryRoundWinPct": 45.2,
    "name": "lokenslok",
    "team": "AWISAVI",
    "steamid64": "76561198077045826",
@@ -1315,6 +1342,15 @@ const LAN_DATA = {
    ]
   },
   {
+   "entryKills": 29,
+   "entryKillWins": 18,
+   "entryKillWinPct": 62.1,
+   "entryDeaths": 22,
+   "entryDeathWins": 7,
+   "entryDeathWinPct": 31.8,
+   "entryDuels": 51,
+   "entryRoundWins": 25,
+   "entryRoundWinPct": 49.0,
    "name": "obune",
    "team": "AWISAVI",
    "steamid64": "76561197982996192",
@@ -1538,6 +1574,15 @@ const LAN_DATA = {
    ]
   },
   {
+   "entryKills": 26,
+   "entryKillWins": 17,
+   "entryKillWinPct": 65.4,
+   "entryDeaths": 22,
+   "entryDeathWins": 5,
+   "entryDeathWinPct": 22.7,
+   "entryDuels": 48,
+   "entryRoundWins": 22,
+   "entryRoundWinPct": 45.8,
    "name": "Karlashnikov",
    "team": "SVEN",
    "steamid64": "76561198035606699",
@@ -1761,6 +1806,15 @@ const LAN_DATA = {
    ]
   },
   {
+   "entryKills": 31,
+   "entryKillWins": 22,
+   "entryKillWinPct": 71.0,
+   "entryDeaths": 34,
+   "entryDeathWins": 13,
+   "entryDeathWinPct": 38.2,
+   "entryDuels": 65,
+   "entryRoundWins": 35,
+   "entryRoundWinPct": 53.8,
    "name": "Lõvikuningas",
    "team": "AWISAVI",
    "steamid64": "76561198168583670",
@@ -1984,6 +2038,15 @@ const LAN_DATA = {
    ]
   },
   {
+   "entryKills": 56,
+   "entryKillWins": 33,
+   "entryKillWinPct": 58.9,
+   "entryDeaths": 65,
+   "entryDeathWins": 20,
+   "entryDeathWinPct": 30.8,
+   "entryDuels": 121,
+   "entryRoundWins": 53,
+   "entryRoundWinPct": 43.8,
    "name": "MFINGJONES",
    "team": "AWISAVI",
    "steamid64": "76561197998387249",
@@ -2207,6 +2270,15 @@ const LAN_DATA = {
    ]
   },
   {
+   "entryKills": 28,
+   "entryKillWins": 21,
+   "entryKillWinPct": 75.0,
+   "entryDeaths": 35,
+   "entryDeathWins": 12,
+   "entryDeathWinPct": 34.3,
+   "entryDuels": 63,
+   "entryRoundWins": 33,
+   "entryRoundWinPct": 52.4,
    "name": "SplashBrothers",
    "team": "SVEN",
    "steamid64": "76561198090315920",
@@ -2430,6 +2502,15 @@ const LAN_DATA = {
    ]
   },
   {
+   "entryKills": 19,
+   "entryKillWins": 17,
+   "entryKillWinPct": 89.5,
+   "entryDeaths": 22,
+   "entryDeathWins": 9,
+   "entryDeathWinPct": 40.9,
+   "entryDuels": 41,
+   "entryRoundWins": 26,
+   "entryRoundWinPct": 63.4,
    "name": "kaneelirull",
    "team": "AWISAVI",
    "steamid64": "76561198079175309",
@@ -2653,6 +2734,15 @@ const LAN_DATA = {
    ]
   },
   {
+   "entryKills": 40,
+   "entryKillWins": 27,
+   "entryKillWinPct": 67.5,
+   "entryDeaths": 56,
+   "entryDeathWins": 21,
+   "entryDeathWinPct": 37.5,
+   "entryDuels": 96,
+   "entryRoundWins": 48,
+   "entryRoundWinPct": 50.0,
    "name": "raidukas1337",
    "team": "SVEN",
    "steamid64": "76561197994899936",
@@ -4944,6 +5034,106 @@ const LAN_DATA = {
    "played": 1
   }
  ],
+ "entry": {
+  "maps": [
+   {
+    "map": "de_train",
+    "matches": 1,
+    "rounds": 23,
+    "entries": 23,
+    "converted": 21,
+    "pct": 91.3
+   },
+   {
+    "map": "de_overpass",
+    "matches": 1,
+    "rounds": 24,
+    "entries": 24,
+    "converted": 20,
+    "pct": 83.3
+   },
+   {
+    "map": "de_nuke",
+    "matches": 2,
+    "rounds": 40,
+    "entries": 40,
+    "converted": 29,
+    "pct": 72.5
+   },
+   {
+    "map": "de_dust2",
+    "matches": 2,
+    "rounds": 43,
+    "entries": 43,
+    "converted": 31,
+    "pct": 72.1
+   },
+   {
+    "map": "de_cache",
+    "matches": 2,
+    "rounds": 47,
+    "entries": 46,
+    "converted": 31,
+    "pct": 67.4
+   },
+   {
+    "map": "de_ancient",
+    "matches": 1,
+    "rounds": 28,
+    "entries": 28,
+    "converted": 18,
+    "pct": 64.3
+   },
+   {
+    "map": "de_inferno",
+    "matches": 3,
+    "rounds": 69,
+    "entries": 68,
+    "converted": 41,
+    "pct": 60.3
+   },
+   {
+    "map": "de_mirage",
+    "matches": 2,
+    "rounds": 48,
+    "entries": 48,
+    "converted": 28,
+    "pct": 58.3
+   },
+   {
+    "map": "de_anubis",
+    "matches": 1,
+    "rounds": 20,
+    "entries": 20,
+    "converted": 10,
+    "pct": 50.0
+   }
+  ],
+  "entries": 340,
+  "converted": 229,
+  "pct": 67.4,
+  "roundsMissing": 2,
+  "best": {
+   "map": "de_train",
+   "matches": 1,
+   "rounds": 23,
+   "entries": 23,
+   "converted": 21,
+   "pct": 91.3
+  },
+  "worst": {
+   "map": "de_anubis",
+   "matches": 1,
+   "rounds": 20,
+   "entries": 20,
+   "converted": 10,
+   "pct": 50.0
+  },
+  "teams": {
+   "SVEN": 67.6,
+   "AWISAVI": 67.1
+  }
+ },
  "topPerformances": [
   {
    "name": "Honeybadger",

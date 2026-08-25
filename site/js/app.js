@@ -637,6 +637,18 @@ createApp({
       { key: 'assists', label: 'Assists', desc: 'Total assists' },
       { key: 'entryPct', label: 'Entry win%', desc: 'Entry duels won as a share of entry duels taken', suffix: '%' },
       { key: 'entryCount', label: 'Entry duels', desc: 'Opening duels taken — the role signal' },
+      {
+        key: 'entryKillWinPct',
+        label: 'Entry kill → win%',
+        desc: 'Rounds won after this player drew first blood',
+        suffix: '%',
+      },
+      {
+        key: 'entryRoundWinPct',
+        label: 'Entry impact%',
+        desc: 'Rounds won when this player was in the opening duel at all — 50% is par',
+        suffix: '%',
+      },
       { key: 'clutchKills', label: 'Clutch kills', desc: 'Kills recorded while last man alive' },
       { key: 'mvps', label: 'MVP rounds', desc: 'Rounds where the player was awarded MVP' },
       { key: 'utilDmg', label: 'Utility dmg', desc: 'Damage dealt with grenades and molotovs' },
@@ -917,6 +929,11 @@ createApp({
         y: { key: 'entryPct', label: 'Entry win %' },
       },
       {
+        label: 'Entry impact',
+        x: { key: 'entryCount', label: 'Entry duels taken' },
+        y: { key: 'entryRoundWinPct', label: 'Rounds won when involved %' },
+      },
+      {
         label: 'Aim',
         x: { key: 'accuracy', label: 'Accuracy %' },
         y: { key: 'hs', label: 'Headshot %' },
@@ -1166,6 +1183,18 @@ createApp({
       { key: 'accuracy', label: 'ACC%', title: 'Shots on target %', fmt: (v) => v.toFixed(1) },
       { key: 'entryCount', label: 'ENTRIES', title: 'Entry duels taken' },
       { key: 'entryPct', label: 'ENTRY%', title: 'Entry duels won %', fmt: (v) => v.toFixed(1) },
+      {
+        key: 'entryKillWinPct',
+        label: 'EK→W%',
+        title: 'Rounds won after this player took the opening kill',
+        fmt: (v) => v.toFixed(1),
+      },
+      {
+        key: 'entryRoundWinPct',
+        label: 'INV→W%',
+        title: 'Rounds won when this player was in the opening duel at all — kill or death',
+        fmt: (v) => v.toFixed(1),
+      },
       { key: 'clutchKills', label: 'CLUTCH', title: 'Kills as last man alive' },
       { key: 'mvps', label: 'MVP', title: 'MVP rounds' },
       { key: 'multi3k', label: '3K', title: 'Three-kill rounds' },
@@ -1208,6 +1237,179 @@ createApp({
     });
     const isLeader = (key, p) => leaders[key] === p[key];
 
+    /* ---------- entry duels ---------- */
+    const entry = LAN_DATA.entry;
+    const ENTRY_KILL_C = C.gold;
+    const ENTRY_INV_C = '#6f9bd8';
+
+    /** Opening-kill conversion per map — how much first blood is worth there. */
+    const entryMapOption = computed(() => {
+      const rows = [...entry.maps].reverse(); // ECharts y-axis reads bottom-up
+      return {
+        ...BASE,
+        grid: { left: 8, right: 52, top: 26, bottom: 30, containLabel: true },
+        tooltip: {
+          ...BASE.tooltip,
+          trigger: 'axis',
+          axisPointer: { type: 'shadow', shadowStyle: { color: 'rgba(255,255,255,.03)' } },
+          formatter: (ps) => {
+            const r = rows[ps[0].dataIndex];
+            return `<b>${prettyMap(r.map)}</b><br/>
+              Opening kill won the round <b>${r.pct}%</b><br/>
+              <span style="color:${C.faint}">${r.converted} of ${r.entries} opening kills ·
+              ${r.matches} map${r.matches > 1 ? 's' : ''} · ${r.rounds} rounds</span>`;
+          },
+        },
+        xAxis: {
+          type: 'value',
+          max: 100,
+          ...axisCommon,
+          axisLabel: { ...axisCommon.axisLabel, formatter: '{value}%' },
+        },
+        yAxis: {
+          type: 'category',
+          data: rows.map((r) => prettyMap(r.map)),
+          ...axisCommon,
+          splitLine: { show: false },
+          axisLabel: { color: C.dim, fontFamily: FONT, fontSize: 13, fontWeight: 600 },
+        },
+        series: [
+          {
+            type: 'bar',
+            barWidth: '60%',
+            itemStyle: {
+              borderRadius: [0, 5, 5, 0],
+              color: (p) => (p.value >= 70 ? C.good : p.value >= 60 ? C.gold : C.bad),
+            },
+            label: {
+              show: true,
+              position: 'right',
+              formatter: '{c}%',
+              color: C.dim,
+              fontFamily: MONO,
+              fontSize: 11,
+            },
+            data: rows.map((r) => r.pct),
+            markLine: {
+              silent: true,
+              symbol: 'none',
+              label: {
+                formatter: `LAN ${entry.pct}%`,
+                color: C.faint,
+                fontFamily: MONO,
+                fontSize: 10,
+                rotate: 0,
+                position: 'end',
+              },
+              lineStyle: { color: C.faint, type: 'dashed', width: 1 },
+              data: [{ xAxis: entry.pct }],
+            },
+          },
+        ],
+      };
+    });
+
+    /* Two views of the same duel: the half a player wins, and the whole thing.
+       The second is zero-sum across the lobby, so 50% is exactly par. */
+    const entryImpact = computed(() =>
+      [...players].sort((a, b) => a.entryRoundWinPct - b.entryRoundWinPct)
+    );
+
+    const entryImpactOption = computed(() => {
+      const rows = entryImpact.value;
+      return {
+        ...BASE,
+        legend: {
+          data: ['After their opening kill', 'In the opening duel at all'],
+          textStyle: { color: C.dim, fontFamily: MONO, fontSize: 10 },
+          icon: 'roundRect',
+          itemWidth: 12,
+          itemHeight: 8,
+          top: 0,
+        },
+        // Deep top margin so the reference-line labels clear the legend even
+        // when it wraps to two rows on a narrow screen.
+        grid: { left: 8, right: 46, top: 64, bottom: 30, containLabel: true },
+        tooltip: {
+          ...BASE.tooltip,
+          trigger: 'axis',
+          axisPointer: { type: 'shadow', shadowStyle: { color: 'rgba(255,255,255,.03)' } },
+          formatter: (ps) => {
+            const r = rows[ps[0].dataIndex];
+            return `<b>${r.name}</b> <span style="color:${C[r.team]}">${r.team}</span><br/>
+              Entry kill &rarr; round win: <b>${r.entryKillWinPct}%</b>
+              <span style="color:${C.faint}">(${r.entryKillWins}/${r.entryKills})</span><br/>
+              Any entry involvement: <b>${r.entryRoundWinPct}%</b>
+              <span style="color:${C.faint}">(${r.entryRoundWins}/${r.entryDuels})</span><br/>
+              <span style="color:${C.faint}">Opened up ${r.entryDeaths}× ·
+              team still won ${r.entryDeathWinPct}% of those</span>`;
+          },
+        },
+        xAxis: {
+          type: 'value',
+          max: 100,
+          ...axisCommon,
+          axisLabel: { ...axisCommon.axisLabel, formatter: '{value}%' },
+        },
+        yAxis: {
+          type: 'category',
+          data: rows.map((r) => r.name),
+          ...axisCommon,
+          splitLine: { show: false },
+          axisLabel: { color: C.dim, fontFamily: FONT, fontSize: 13, fontWeight: 600 },
+        },
+        series: [
+          {
+            name: 'After their opening kill',
+            type: 'bar',
+            barWidth: '34%',
+            barGap: '12%',
+            itemStyle: { color: ENTRY_KILL_C, borderRadius: [0, 4, 4, 0] },
+            data: rows.map((r) => r.entryKillWinPct),
+            markLine: {
+              silent: true,
+              symbol: 'none',
+              label: {
+                formatter: `LAN ${entry.pct}%`,
+                color: C.faint,
+                fontFamily: MONO,
+                fontSize: 10,
+                rotate: 0,
+                position: 'end',
+                // staggered so the two reference labels never collide when
+                // the 50% and 67.4% lines sit close together on a narrow screen
+                distance: 18,
+              },
+              lineStyle: { color: ENTRY_KILL_C, type: 'dashed', width: 1, opacity: 0.45 },
+              data: [{ xAxis: entry.pct }],
+            },
+          },
+          {
+            name: 'In the opening duel at all',
+            type: 'bar',
+            barWidth: '34%',
+            itemStyle: { color: ENTRY_INV_C, borderRadius: [0, 4, 4, 0] },
+            data: rows.map((r) => r.entryRoundWinPct),
+            markLine: {
+              silent: true,
+              symbol: 'none',
+              label: {
+                formatter: 'par 50%',
+                color: C.faint,
+                fontFamily: MONO,
+                fontSize: 10,
+                rotate: 0,
+                position: 'end',
+                distance: 3,
+              },
+              lineStyle: { color: ENTRY_INV_C, type: 'dashed', width: 1, opacity: 0.6 },
+              data: [{ xAxis: 50 }],
+            },
+          },
+        ],
+      };
+    });
+
     /* ---------- matches ---------- */
     const matchFilter = ref('all');
     const openMatches = ref([]);
@@ -1233,6 +1435,7 @@ createApp({
       { id: 'overview', label: 'Overview' },
       { id: 'teams', label: 'Teams' },
       { id: 'players', label: 'Players' },
+      { id: 'entry', label: 'Entry duels' },
       { id: 'matches', label: 'Matches' },
     ];
     const activeSection = ref('overview');
@@ -1267,6 +1470,8 @@ createApp({
       radarSelection, toggleRadar, radarOption, sparkOption,
       columns, sortKey, sortAsc, sortBy, sortedPlayers, isLeader, mvpRoundLeader,
       bestMap, worstMap,
+      // entry duels
+      entry, entryMapOption, entryImpact, entryImpactOption,
       // matches
       matchFilter, openMatches, filteredMatches, toggleMatch, toggleAll, halfText,
       // helpers

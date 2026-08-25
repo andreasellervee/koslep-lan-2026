@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """Generate site/js/data.js from the raw LAN stat dumps.
 
-Reads consolidated_player_stats.json + match_scoreboards/*.json and emits a
-single `const LAN_DATA = {...}` module so the site works when opened straight
-from disk (file://) as well as when hosted.
+Reads consolidated_player_stats.json + match_scoreboards/*.json + entry_stats/
+and emits a single `const LAN_DATA = {...}` module so the site works when
+opened straight from disk (file://) as well as when hosted.
 
 Run from the repo root:  python3 tools/build_data.py
 """
@@ -23,6 +23,39 @@ def pct(num, den):
     return round(100 * num / den, 1) if den else 0.0
 
 
+def load_entry_stats():
+    """Per-map opening-duel data from entry_stats/de_*.json.
+
+    Two rounds in the LAN have no opening kill recorded (de_cache m14 r2,
+    de_inferno m10 r12), so entry counts are the honest denominator here
+    rather than the round count.
+    """
+    maps = []
+    players = defaultdict(lambda: defaultdict(int))
+    for path in sorted(glob.glob(os.path.join(ROOT, "entry_stats", "de_*.json"))):
+        m = json.load(open(path, encoding="utf-8"))
+        entries = sum(p["entry_kills"] for p in m["players"])
+        maps.append(
+            {
+                "map": m["map"],
+                "matches": m["matches_played"],
+                "rounds": m["rounds"],
+                "entries": entries,
+                "converted": m["opening_kill_converted_rounds"],
+                "pct": pct(m["opening_kill_converted_rounds"], entries),
+            }
+        )
+        for p in m["players"]:
+            acc = players[p["name"]]
+            acc["entryKills"] += p["entry_kills"]
+            acc["entryKillWins"] += p["entry_kill_round_wins"]
+            acc["entryDeaths"] += p["entry_deaths"]
+            acc["entryDeathWins"] += p["entry_death_round_wins"]
+
+    maps.sort(key=lambda m: -m["pct"])
+    return maps, players
+
+
 def main():
     consolidated = json.load(
         open(os.path.join(ROOT, "consolidated_player_stats.json"), encoding="utf-8")
@@ -37,6 +70,7 @@ def main():
 
     rounds_total = sum(sum(m["score"].values()) for m in matches)
     team_of = {p["name"]: p["team"] for p in consolidated["players"]}
+    entry_maps, entry_players = load_entry_stats()
 
     # ---- matches -----------------------------------------------------------
     map_records = defaultdict(lambda: {t: 0 for t in TEAM_ORDER})
@@ -116,8 +150,23 @@ def main():
     for p in consolidated["players"]:
         t = p["totals"]
         games = [per_match[p["name"]][mid] for mid in match_ids]
+        e = entry_players[p["name"]]
+        # Every opening duel has one killer and one victim, and exactly one
+        # side wins the round — so entryRoundWinPct is zero-sum across the
+        # lobby and sits at exactly 50% LAN-wide. It reads as above/below par.
+        e_duels = e["entryKills"] + e["entryDeaths"]
+        e_wins = e["entryKillWins"] + e["entryDeathWins"]
         out_players.append(
             {
+                "entryKills": e["entryKills"],
+                "entryKillWins": e["entryKillWins"],
+                "entryKillWinPct": pct(e["entryKillWins"], e["entryKills"]),
+                "entryDeaths": e["entryDeaths"],
+                "entryDeathWins": e["entryDeathWins"],
+                "entryDeathWinPct": pct(e["entryDeathWins"], e["entryDeaths"]),
+                "entryDuels": e_duels,
+                "entryRoundWins": e_wins,
+                "entryRoundWinPct": pct(e_wins, e_duels),
                 "name": p["name"],
                 "team": p["team"],
                 "steamid64": p["steamid64"],
@@ -281,6 +330,25 @@ def main():
     champion = max(out_teams, key=lambda t: t["mapsWon"])
     mvp = max(out_players, key=lambda p: p["mvps"])
 
+    entry_total_entries = sum(m["entries"] for m in entry_maps)
+    entry_total_converted = sum(m["converted"] for m in entry_maps)
+    out_entry = {
+        "maps": entry_maps,
+        "entries": entry_total_entries,
+        "converted": entry_total_converted,
+        "pct": pct(entry_total_converted, entry_total_entries),
+        "roundsMissing": rounds_total - entry_total_entries,
+        "best": entry_maps[0],
+        "worst": entry_maps[-1],
+        "teams": {
+            t["name"]: pct(
+                sum(p["entryKillWins"] for p in out_players if p["team"] == t["name"]),
+                sum(p["entryKills"] for p in out_players if p["team"] == t["name"]),
+            )
+            for t in out_teams
+        },
+    }
+
     data = {
         "meta": {
             "title": "KOSLEP LAN 2026",
@@ -305,6 +373,7 @@ def main():
         "players": out_players,
         "matches": out_matches,
         "mapRecords": out_map_records,
+        "entry": out_entry,
         "topPerformances": top_perfs,
         "matchIds": match_ids,
     }

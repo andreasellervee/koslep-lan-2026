@@ -1,0 +1,788 @@
+{
+ "source": "derived from entry_stats/de_*.json rounds_detail",
+ "note": "entry_kill_win_pct = rounds won after this player took the opening kill. entry_involved_win_pct = rounds won when this player was in the opening duel at all (kill or death). The latter is zero-sum across the lobby and sits at exactly 50.0% league-wide, so it reads directly as above/below average.",
+ "rounds_with_entry_data": 340,
+ "baseline": {
+  "entry_kills": 340,
+  "entry_kill_round_wins": 229,
+  "entry_kill_win_pct": 67.4,
+  "entry_duels": 680,
+  "entry_duel_round_wins": 340,
+  "entry_involved_win_pct": 50.0
+ },
+ "players": [
+  {
+   "name": "kaneelirull",
+   "team": "AWISAVI",
+   "entry_kills": 19,
+   "entry_kill_round_wins": 17,
+   "entry_kill_win_pct": 89.5,
+   "entry_deaths": 22,
+   "entry_death_round_wins": 9,
+   "entry_death_win_pct": 40.9,
+   "entry_duels": 41,
+   "entry_duel_round_wins": 26,
+   "entry_involved_win_pct": 63.4,
+   "by_map": {
+    "de_anubis": {
+     "entry_kills": 1,
+     "entry_kill_win_pct": 0.0,
+     "entry_duels": 2,
+     "entry_duel_round_wins": 0,
+     "entry_involved_win_pct": 0.0
+    },
+    "de_cache": {
+     "entry_kills": 0,
+     "entry_kill_win_pct": null,
+     "entry_duels": 2,
+     "entry_duel_round_wins": 1,
+     "entry_involved_win_pct": 50.0
+    },
+    "de_dust2": {
+     "entry_kills": 4,
+     "entry_kill_win_pct": 100.0,
+     "entry_duels": 8,
+     "entry_duel_round_wins": 5,
+     "entry_involved_win_pct": 62.5
+    },
+    "de_inferno": {
+     "entry_kills": 3,
+     "entry_kill_win_pct": 100.0,
+     "entry_duels": 6,
+     "entry_duel_round_wins": 3,
+     "entry_involved_win_pct": 50.0
+    },
+    "de_mirage": {
+     "entry_kills": 2,
+     "entry_kill_win_pct": 100.0,
+     "entry_duels": 6,
+     "entry_duel_round_wins": 5,
+     "entry_involved_win_pct": 83.3
+    },
+    "de_nuke": {
+     "entry_kills": 4,
+     "entry_kill_win_pct": 75.0,
+     "entry_duels": 8,
+     "entry_duel_round_wins": 6,
+     "entry_involved_win_pct": 75.0
+    },
+    "de_overpass": {
+     "entry_kills": 4,
+     "entry_kill_win_pct": 100.0,
+     "entry_duels": 6,
+     "entry_duel_round_wins": 5,
+     "entry_involved_win_pct": 83.3
+    },
+    "de_train": {
+     "entry_kills": 1,
+     "entry_kill_win_pct": 100.0,
+     "entry_duels": 3,
+     "entry_duel_round_wins": 1,
+     "entry_involved_win_pct": 33.3
+    }
+   }
+  },
+  {
+   "name": "Lõvikuningas",
+   "team": "AWISAVI",
+   "entry_kills": 31,
+   "entry_kill_round_wins": 22,
+   "entry_kill_win_pct": 71.0,
+   "entry_deaths": 34,
+   "entry_death_round_wins": 13,
+   "entry_death_win_pct": 38.2,
+   "entry_duels": 65,
+   "entry_duel_round_wins": 35,
+   "entry_involved_win_pct": 53.8,
+   "by_map": {
+    "de_ancient": {
+     "entry_kills": 6,
+     "entry_kill_win_pct": 50.0,
+     "entry_duels": 8,
+     "entry_duel_round_wins": 3,
+     "entry_involved_win_pct": 37.5
+    },
+    "de_anubis": {
+     "entry_kills": 2,
+     "entry_kill_win_pct": 50.0,
+     "entry_duels": 6,
+     "entry_duel_round_wins": 2,
+     "entry_involved_win_pct": 33.3
+    },
+    "de_cache": {
+     "entry_kills": 6,
+     "entry_kill_win_pct": 83.3,
+     "entry_duels": 12,
+     "entry_duel_round_wins": 9,
+     "entry_involved_win_pct": 75.0
+    },
+    "de_dust2": {
+     "entry_kills": 2,
+     "entry_kill_win_pct": 100.0,
+     "entry_duels": 5,
+     "entry_duel_round_wins": 4,
+     "entry_involved_win_pct": 80.0
+    },
+    "de_inferno": {
+     "entry_kills": 5,
+     "entry_kill_win_pct": 60.0,
+     "entry_duels": 10,
+     "entry_duel_round_wins": 4,
+     "entry_involved_win_pct": 40.0
+    },
+    "de_mirage": {
+     "entry_kills": 4,
+     "entry_kill_win_pct": 75.0,
+     "entry_duels": 9,
+     "entry_duel_round_wins": 6,
+     "entry_involved_win_pct": 66.7
+    },
+    "de_nuke": {
+     "entry_kills": 4,
+     "entry_kill_win_pct": 75.0,
+     "entry_duels": 9,
+     "entry_duel_round_wins": 5,
+     "entry_involved_win_pct": 55.6
+    },
+    "de_overpass": {
+     "entry_kills": 1,
+     "entry_kill_win_pct": 100.0,
+     "entry_duels": 3,
+     "entry_duel_round_wins": 1,
+     "entry_involved_win_pct": 33.3
+    },
+    "de_train": {
+     "entry_kills": 1,
+     "entry_kill_win_pct": 100.0,
+     "entry_duels": 3,
+     "entry_duel_round_wins": 1,
+     "entry_involved_win_pct": 33.3
+    }
+   }
+  },
+  {
+   "name": "Rahvuslind",
+   "team": "SVEN",
+   "entry_kills": 39,
+   "entry_kill_round_wins": 25,
+   "entry_kill_win_pct": 64.1,
+   "entry_deaths": 25,
+   "entry_death_round_wins": 9,
+   "entry_death_win_pct": 36.0,
+   "entry_duels": 64,
+   "entry_duel_round_wins": 34,
+   "entry_involved_win_pct": 53.1,
+   "by_map": {
+    "de_ancient": {
+     "entry_kills": 4,
+     "entry_kill_win_pct": 75.0,
+     "entry_duels": 7,
+     "entry_duel_round_wins": 3,
+     "entry_involved_win_pct": 42.9
+    },
+    "de_anubis": {
+     "entry_kills": 2,
+     "entry_kill_win_pct": 50.0,
+     "entry_duels": 2,
+     "entry_duel_round_wins": 1,
+     "entry_involved_win_pct": 50.0
+    },
+    "de_cache": {
+     "entry_kills": 4,
+     "entry_kill_win_pct": 50.0,
+     "entry_duels": 8,
+     "entry_duel_round_wins": 2,
+     "entry_involved_win_pct": 25.0
+    },
+    "de_dust2": {
+     "entry_kills": 4,
+     "entry_kill_win_pct": 100.0,
+     "entry_duels": 7,
+     "entry_duel_round_wins": 5,
+     "entry_involved_win_pct": 71.4
+    },
+    "de_inferno": {
+     "entry_kills": 8,
+     "entry_kill_win_pct": 87.5,
+     "entry_duels": 12,
+     "entry_duel_round_wins": 10,
+     "entry_involved_win_pct": 83.3
+    },
+    "de_mirage": {
+     "entry_kills": 8,
+     "entry_kill_win_pct": 37.5,
+     "entry_duels": 14,
+     "entry_duel_round_wins": 7,
+     "entry_involved_win_pct": 50.0
+    },
+    "de_nuke": {
+     "entry_kills": 5,
+     "entry_kill_win_pct": 40.0,
+     "entry_duels": 8,
+     "entry_duel_round_wins": 3,
+     "entry_involved_win_pct": 37.5
+    },
+    "de_overpass": {
+     "entry_kills": 2,
+     "entry_kill_win_pct": 50.0,
+     "entry_duels": 3,
+     "entry_duel_round_wins": 1,
+     "entry_involved_win_pct": 33.3
+    },
+    "de_train": {
+     "entry_kills": 2,
+     "entry_kill_win_pct": 100.0,
+     "entry_duels": 3,
+     "entry_duel_round_wins": 2,
+     "entry_involved_win_pct": 66.7
+    }
+   }
+  },
+  {
+   "name": "SplashBrothers",
+   "team": "SVEN",
+   "entry_kills": 28,
+   "entry_kill_round_wins": 21,
+   "entry_kill_win_pct": 75.0,
+   "entry_deaths": 35,
+   "entry_death_round_wins": 12,
+   "entry_death_win_pct": 34.3,
+   "entry_duels": 63,
+   "entry_duel_round_wins": 33,
+   "entry_involved_win_pct": 52.4,
+   "by_map": {
+    "de_ancient": {
+     "entry_kills": 4,
+     "entry_kill_win_pct": 100.0,
+     "entry_duels": 7,
+     "entry_duel_round_wins": 6,
+     "entry_involved_win_pct": 85.7
+    },
+    "de_anubis": {
+     "entry_kills": 2,
+     "entry_kill_win_pct": 50.0,
+     "entry_duels": 5,
+     "entry_duel_round_wins": 3,
+     "entry_involved_win_pct": 60.0
+    },
+    "de_cache": {
+     "entry_kills": 6,
+     "entry_kill_win_pct": 83.3,
+     "entry_duels": 15,
+     "entry_duel_round_wins": 9,
+     "entry_involved_win_pct": 60.0
+    },
+    "de_dust2": {
+     "entry_kills": 3,
+     "entry_kill_win_pct": 66.7,
+     "entry_duels": 6,
+     "entry_duel_round_wins": 3,
+     "entry_involved_win_pct": 50.0
+    },
+    "de_inferno": {
+     "entry_kills": 5,
+     "entry_kill_win_pct": 40.0,
+     "entry_duels": 9,
+     "entry_duel_round_wins": 3,
+     "entry_involved_win_pct": 33.3
+    },
+    "de_mirage": {
+     "entry_kills": 1,
+     "entry_kill_win_pct": 100.0,
+     "entry_duels": 4,
+     "entry_duel_round_wins": 2,
+     "entry_involved_win_pct": 50.0
+    },
+    "de_nuke": {
+     "entry_kills": 2,
+     "entry_kill_win_pct": 100.0,
+     "entry_duels": 8,
+     "entry_duel_round_wins": 2,
+     "entry_involved_win_pct": 25.0
+    },
+    "de_overpass": {
+     "entry_kills": 3,
+     "entry_kill_win_pct": 66.7,
+     "entry_duels": 6,
+     "entry_duel_round_wins": 3,
+     "entry_involved_win_pct": 50.0
+    },
+    "de_train": {
+     "entry_kills": 2,
+     "entry_kill_win_pct": 100.0,
+     "entry_duels": 3,
+     "entry_duel_round_wins": 2,
+     "entry_involved_win_pct": 66.7
+    }
+   }
+  },
+  {
+   "name": "Honeybadger",
+   "team": "SVEN",
+   "entry_kills": 43,
+   "entry_kill_round_wins": 29,
+   "entry_kill_win_pct": 67.4,
+   "entry_deaths": 26,
+   "entry_death_round_wins": 7,
+   "entry_death_win_pct": 26.9,
+   "entry_duels": 69,
+   "entry_duel_round_wins": 36,
+   "entry_involved_win_pct": 52.2,
+   "by_map": {
+    "de_ancient": {
+     "entry_kills": 1,
+     "entry_kill_win_pct": 0.0,
+     "entry_duels": 3,
+     "entry_duel_round_wins": 1,
+     "entry_involved_win_pct": 33.3
+    },
+    "de_anubis": {
+     "entry_kills": 6,
+     "entry_kill_win_pct": 50.0,
+     "entry_duels": 6,
+     "entry_duel_round_wins": 3,
+     "entry_involved_win_pct": 50.0
+    },
+    "de_cache": {
+     "entry_kills": 4,
+     "entry_kill_win_pct": 50.0,
+     "entry_duels": 6,
+     "entry_duel_round_wins": 2,
+     "entry_involved_win_pct": 33.3
+    },
+    "de_dust2": {
+     "entry_kills": 7,
+     "entry_kill_win_pct": 85.7,
+     "entry_duels": 10,
+     "entry_duel_round_wins": 8,
+     "entry_involved_win_pct": 80.0
+    },
+    "de_inferno": {
+     "entry_kills": 8,
+     "entry_kill_win_pct": 62.5,
+     "entry_duels": 15,
+     "entry_duel_round_wins": 7,
+     "entry_involved_win_pct": 46.7
+    },
+    "de_mirage": {
+     "entry_kills": 6,
+     "entry_kill_win_pct": 50.0,
+     "entry_duels": 9,
+     "entry_duel_round_wins": 4,
+     "entry_involved_win_pct": 44.4
+    },
+    "de_nuke": {
+     "entry_kills": 3,
+     "entry_kill_win_pct": 100.0,
+     "entry_duels": 7,
+     "entry_duel_round_wins": 4,
+     "entry_involved_win_pct": 57.1
+    },
+    "de_overpass": {
+     "entry_kills": 3,
+     "entry_kill_win_pct": 100.0,
+     "entry_duels": 5,
+     "entry_duel_round_wins": 3,
+     "entry_involved_win_pct": 60.0
+    },
+    "de_train": {
+     "entry_kills": 5,
+     "entry_kill_win_pct": 80.0,
+     "entry_duels": 8,
+     "entry_duel_round_wins": 4,
+     "entry_involved_win_pct": 50.0
+    }
+   }
+  },
+  {
+   "name": "raidukas1337",
+   "team": "SVEN",
+   "entry_kills": 40,
+   "entry_kill_round_wins": 27,
+   "entry_kill_win_pct": 67.5,
+   "entry_deaths": 56,
+   "entry_death_round_wins": 21,
+   "entry_death_win_pct": 37.5,
+   "entry_duels": 96,
+   "entry_duel_round_wins": 48,
+   "entry_involved_win_pct": 50.0,
+   "by_map": {
+    "de_ancient": {
+     "entry_kills": 1,
+     "entry_kill_win_pct": 100.0,
+     "entry_duels": 5,
+     "entry_duel_round_wins": 3,
+     "entry_involved_win_pct": 60.0
+    },
+    "de_anubis": {
+     "entry_kills": 2,
+     "entry_kill_win_pct": 100.0,
+     "entry_duels": 6,
+     "entry_duel_round_wins": 5,
+     "entry_involved_win_pct": 83.3
+    },
+    "de_cache": {
+     "entry_kills": 4,
+     "entry_kill_win_pct": 75.0,
+     "entry_duels": 10,
+     "entry_duel_round_wins": 5,
+     "entry_involved_win_pct": 50.0
+    },
+    "de_dust2": {
+     "entry_kills": 6,
+     "entry_kill_win_pct": 66.7,
+     "entry_duels": 10,
+     "entry_duel_round_wins": 5,
+     "entry_involved_win_pct": 50.0
+    },
+    "de_inferno": {
+     "entry_kills": 11,
+     "entry_kill_win_pct": 63.6,
+     "entry_duels": 24,
+     "entry_duel_round_wins": 15,
+     "entry_involved_win_pct": 62.5
+    },
+    "de_mirage": {
+     "entry_kills": 6,
+     "entry_kill_win_pct": 33.3,
+     "entry_duels": 14,
+     "entry_duel_round_wins": 2,
+     "entry_involved_win_pct": 14.3
+    },
+    "de_nuke": {
+     "entry_kills": 5,
+     "entry_kill_win_pct": 60.0,
+     "entry_duels": 14,
+     "entry_duel_round_wins": 7,
+     "entry_involved_win_pct": 50.0
+    },
+    "de_overpass": {
+     "entry_kills": 2,
+     "entry_kill_win_pct": 100.0,
+     "entry_duels": 6,
+     "entry_duel_round_wins": 2,
+     "entry_involved_win_pct": 33.3
+    },
+    "de_train": {
+     "entry_kills": 3,
+     "entry_kill_win_pct": 100.0,
+     "entry_duels": 7,
+     "entry_duel_round_wins": 4,
+     "entry_involved_win_pct": 57.1
+    }
+   }
+  },
+  {
+   "name": "obune",
+   "team": "AWISAVI",
+   "entry_kills": 29,
+   "entry_kill_round_wins": 18,
+   "entry_kill_win_pct": 62.1,
+   "entry_deaths": 22,
+   "entry_death_round_wins": 7,
+   "entry_death_win_pct": 31.8,
+   "entry_duels": 51,
+   "entry_duel_round_wins": 25,
+   "entry_involved_win_pct": 49.0,
+   "by_map": {
+    "de_ancient": {
+     "entry_kills": 5,
+     "entry_kill_win_pct": 80.0,
+     "entry_duels": 9,
+     "entry_duel_round_wins": 6,
+     "entry_involved_win_pct": 66.7
+    },
+    "de_anubis": {
+     "entry_kills": 0,
+     "entry_kill_win_pct": null,
+     "entry_duels": 4,
+     "entry_duel_round_wins": 3,
+     "entry_involved_win_pct": 75.0
+    },
+    "de_cache": {
+     "entry_kills": 1,
+     "entry_kill_win_pct": 100.0,
+     "entry_duels": 3,
+     "entry_duel_round_wins": 1,
+     "entry_involved_win_pct": 33.3
+    },
+    "de_dust2": {
+     "entry_kills": 5,
+     "entry_kill_win_pct": 40.0,
+     "entry_duels": 9,
+     "entry_duel_round_wins": 3,
+     "entry_involved_win_pct": 33.3
+    },
+    "de_inferno": {
+     "entry_kills": 6,
+     "entry_kill_win_pct": 50.0,
+     "entry_duels": 10,
+     "entry_duel_round_wins": 3,
+     "entry_involved_win_pct": 30.0
+    },
+    "de_mirage": {
+     "entry_kills": 6,
+     "entry_kill_win_pct": 66.7,
+     "entry_duels": 7,
+     "entry_duel_round_wins": 4,
+     "entry_involved_win_pct": 57.1
+    },
+    "de_nuke": {
+     "entry_kills": 3,
+     "entry_kill_win_pct": 66.7,
+     "entry_duels": 3,
+     "entry_duel_round_wins": 2,
+     "entry_involved_win_pct": 66.7
+    },
+    "de_overpass": {
+     "entry_kills": 3,
+     "entry_kill_win_pct": 66.7,
+     "entry_duels": 4,
+     "entry_duel_round_wins": 2,
+     "entry_involved_win_pct": 50.0
+    },
+    "de_train": {
+     "entry_kills": 0,
+     "entry_kill_win_pct": null,
+     "entry_duels": 2,
+     "entry_duel_round_wins": 1,
+     "entry_involved_win_pct": 50.0
+    }
+   }
+  },
+  {
+   "name": "Karlashnikov",
+   "team": "SVEN",
+   "entry_kills": 26,
+   "entry_kill_round_wins": 17,
+   "entry_kill_win_pct": 65.4,
+   "entry_deaths": 22,
+   "entry_death_round_wins": 5,
+   "entry_death_win_pct": 22.7,
+   "entry_duels": 48,
+   "entry_duel_round_wins": 22,
+   "entry_involved_win_pct": 45.8,
+   "by_map": {
+    "de_ancient": {
+     "entry_kills": 2,
+     "entry_kill_win_pct": 50.0,
+     "entry_duels": 6,
+     "entry_duel_round_wins": 3,
+     "entry_involved_win_pct": 50.0
+    },
+    "de_anubis": {
+     "entry_kills": 1,
+     "entry_kill_win_pct": 100.0,
+     "entry_duels": 1,
+     "entry_duel_round_wins": 1,
+     "entry_involved_win_pct": 100.0
+    },
+    "de_cache": {
+     "entry_kills": 4,
+     "entry_kill_win_pct": 25.0,
+     "entry_duels": 7,
+     "entry_duel_round_wins": 1,
+     "entry_involved_win_pct": 14.3
+    },
+    "de_dust2": {
+     "entry_kills": 6,
+     "entry_kill_win_pct": 66.7,
+     "entry_duels": 10,
+     "entry_duel_round_wins": 5,
+     "entry_involved_win_pct": 50.0
+    },
+    "de_inferno": {
+     "entry_kills": 4,
+     "entry_kill_win_pct": 75.0,
+     "entry_duels": 8,
+     "entry_duel_round_wins": 4,
+     "entry_involved_win_pct": 50.0
+    },
+    "de_mirage": {
+     "entry_kills": 4,
+     "entry_kill_win_pct": 75.0,
+     "entry_duels": 7,
+     "entry_duel_round_wins": 4,
+     "entry_involved_win_pct": 57.1
+    },
+    "de_nuke": {
+     "entry_kills": 1,
+     "entry_kill_win_pct": 100.0,
+     "entry_duels": 3,
+     "entry_duel_round_wins": 1,
+     "entry_involved_win_pct": 33.3
+    },
+    "de_overpass": {
+     "entry_kills": 3,
+     "entry_kill_win_pct": 66.7,
+     "entry_duels": 4,
+     "entry_duel_round_wins": 2,
+     "entry_involved_win_pct": 50.0
+    },
+    "de_train": {
+     "entry_kills": 1,
+     "entry_kill_win_pct": 100.0,
+     "entry_duels": 2,
+     "entry_duel_round_wins": 1,
+     "entry_involved_win_pct": 50.0
+    }
+   }
+  },
+  {
+   "name": "lokenslok",
+   "team": "AWISAVI",
+   "entry_kills": 29,
+   "entry_kill_round_wins": 20,
+   "entry_kill_win_pct": 69.0,
+   "entry_deaths": 33,
+   "entry_death_round_wins": 8,
+   "entry_death_win_pct": 24.2,
+   "entry_duels": 62,
+   "entry_duel_round_wins": 28,
+   "entry_involved_win_pct": 45.2,
+   "by_map": {
+    "de_ancient": {
+     "entry_kills": 1,
+     "entry_kill_win_pct": 100.0,
+     "entry_duels": 2,
+     "entry_duel_round_wins": 2,
+     "entry_involved_win_pct": 100.0
+    },
+    "de_anubis": {
+     "entry_kills": 2,
+     "entry_kill_win_pct": 50.0,
+     "entry_duels": 3,
+     "entry_duel_round_wins": 2,
+     "entry_involved_win_pct": 66.7
+    },
+    "de_cache": {
+     "entry_kills": 5,
+     "entry_kill_win_pct": 80.0,
+     "entry_duels": 8,
+     "entry_duel_round_wins": 5,
+     "entry_involved_win_pct": 62.5
+    },
+    "de_dust2": {
+     "entry_kills": 3,
+     "entry_kill_win_pct": 66.7,
+     "entry_duels": 9,
+     "entry_duel_round_wins": 2,
+     "entry_involved_win_pct": 22.2
+    },
+    "de_inferno": {
+     "entry_kills": 6,
+     "entry_kill_win_pct": 50.0,
+     "entry_duels": 12,
+     "entry_duel_round_wins": 6,
+     "entry_involved_win_pct": 50.0
+    },
+    "de_mirage": {
+     "entry_kills": 2,
+     "entry_kill_win_pct": 50.0,
+     "entry_duels": 7,
+     "entry_duel_round_wins": 3,
+     "entry_involved_win_pct": 42.9
+    },
+    "de_nuke": {
+     "entry_kills": 8,
+     "entry_kill_win_pct": 75.0,
+     "entry_duels": 11,
+     "entry_duel_round_wins": 6,
+     "entry_involved_win_pct": 54.5
+    },
+    "de_overpass": {
+     "entry_kills": 1,
+     "entry_kill_win_pct": 100.0,
+     "entry_duels": 4,
+     "entry_duel_round_wins": 1,
+     "entry_involved_win_pct": 25.0
+    },
+    "de_train": {
+     "entry_kills": 1,
+     "entry_kill_win_pct": 100.0,
+     "entry_duels": 6,
+     "entry_duel_round_wins": 1,
+     "entry_involved_win_pct": 16.7
+    }
+   }
+  },
+  {
+   "name": "MFINGJONES",
+   "team": "AWISAVI",
+   "entry_kills": 56,
+   "entry_kill_round_wins": 33,
+   "entry_kill_win_pct": 58.9,
+   "entry_deaths": 65,
+   "entry_death_round_wins": 20,
+   "entry_death_win_pct": 30.8,
+   "entry_duels": 121,
+   "entry_duel_round_wins": 53,
+   "entry_involved_win_pct": 43.8,
+   "by_map": {
+    "de_ancient": {
+     "entry_kills": 4,
+     "entry_kill_win_pct": 25.0,
+     "entry_duels": 9,
+     "entry_duel_round_wins": 1,
+     "entry_involved_win_pct": 11.1
+    },
+    "de_anubis": {
+     "entry_kills": 2,
+     "entry_kill_win_pct": 0.0,
+     "entry_duels": 5,
+     "entry_duel_round_wins": 0,
+     "entry_involved_win_pct": 0.0
+    },
+    "de_cache": {
+     "entry_kills": 12,
+     "entry_kill_win_pct": 66.7,
+     "entry_duels": 21,
+     "entry_duel_round_wins": 11,
+     "entry_involved_win_pct": 52.4
+    },
+    "de_dust2": {
+     "entry_kills": 3,
+     "entry_kill_win_pct": 33.3,
+     "entry_duels": 12,
+     "entry_duel_round_wins": 3,
+     "entry_involved_win_pct": 25.0
+    },
+    "de_inferno": {
+     "entry_kills": 12,
+     "entry_kill_win_pct": 41.7,
+     "entry_duels": 30,
+     "entry_duel_round_wins": 13,
+     "entry_involved_win_pct": 43.3
+    },
+    "de_mirage": {
+     "entry_kills": 9,
+     "entry_kill_win_pct": 66.7,
+     "entry_duels": 19,
+     "entry_duel_round_wins": 11,
+     "entry_involved_win_pct": 57.9
+    },
+    "de_nuke": {
+     "entry_kills": 5,
+     "entry_kill_win_pct": 80.0,
+     "entry_duels": 9,
+     "entry_duel_round_wins": 4,
+     "entry_involved_win_pct": 44.4
+    },
+    "de_overpass": {
+     "entry_kills": 2,
+     "entry_kill_win_pct": 100.0,
+     "entry_duels": 7,
+     "entry_duel_round_wins": 4,
+     "entry_involved_win_pct": 57.1
+    },
+    "de_train": {
+     "entry_kills": 7,
+     "entry_kill_win_pct": 85.7,
+     "entry_duels": 9,
+     "entry_duel_round_wins": 6,
+     "entry_involved_win_pct": 66.7
+    }
+   }
+  }
+ ]
+}

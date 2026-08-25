@@ -1,0 +1,391 @@
+{
+  "map": "de_dust2",
+  "matches_played": 2,
+  "rounds": 43,
+  "opening_kill_converted_rounds": 31,
+  "opening_kill_conversion_pct": 72.1,
+  "players": [
+    {
+      "name": "Honeybadger",
+      "team": "SVEN",
+      "entry_kills": 7,
+      "entry_kill_round_wins": 6,
+      "entry_kill_win_pct": 85.7,
+      "entry_deaths": 3,
+      "entry_death_round_wins": 2,
+      "entry_death_win_pct": 66.7
+    },
+    {
+      "name": "Karlashnikov",
+      "team": "SVEN",
+      "entry_kills": 6,
+      "entry_kill_round_wins": 4,
+      "entry_kill_win_pct": 66.7,
+      "entry_deaths": 4,
+      "entry_death_round_wins": 1,
+      "entry_death_win_pct": 25.0
+    },
+    {
+      "name": "raidukas1337",
+      "team": "SVEN",
+      "entry_kills": 6,
+      "entry_kill_round_wins": 4,
+      "entry_kill_win_pct": 66.7,
+      "entry_deaths": 4,
+      "entry_death_round_wins": 1,
+      "entry_death_win_pct": 25.0
+    },
+    {
+      "name": "obune",
+      "team": "AWISAVI",
+      "entry_kills": 5,
+      "entry_kill_round_wins": 2,
+      "entry_kill_win_pct": 40.0,
+      "entry_deaths": 4,
+      "entry_death_round_wins": 1,
+      "entry_death_win_pct": 25.0
+    },
+    {
+      "name": "Rahvuslind",
+      "team": "SVEN",
+      "entry_kills": 4,
+      "entry_kill_round_wins": 4,
+      "entry_kill_win_pct": 100.0,
+      "entry_deaths": 3,
+      "entry_death_round_wins": 1,
+      "entry_death_win_pct": 33.3
+    },
+    {
+      "name": "kaneelirull",
+      "team": "AWISAVI",
+      "entry_kills": 4,
+      "entry_kill_round_wins": 4,
+      "entry_kill_win_pct": 100.0,
+      "entry_deaths": 4,
+      "entry_death_round_wins": 1,
+      "entry_death_win_pct": 25.0
+    },
+    {
+      "name": "SplashBrothers",
+      "team": "SVEN",
+      "entry_kills": 3,
+      "entry_kill_round_wins": 2,
+      "entry_kill_win_pct": 66.7,
+      "entry_deaths": 3,
+      "entry_death_round_wins": 1,
+      "entry_death_win_pct": 33.3
+    },
+    {
+      "name": "lokenslok",
+      "team": "AWISAVI",
+      "entry_kills": 3,
+      "entry_kill_round_wins": 2,
+      "entry_kill_win_pct": 66.7,
+      "entry_deaths": 6,
+      "entry_death_round_wins": 0,
+      "entry_death_win_pct": 0.0
+    },
+    {
+      "name": "MFINGJONES",
+      "team": "AWISAVI",
+      "entry_kills": 3,
+      "entry_kill_round_wins": 1,
+      "entry_kill_win_pct": 33.3,
+      "entry_deaths": 9,
+      "entry_death_round_wins": 2,
+      "entry_death_win_pct": 22.2
+    },
+    {
+      "name": "Lõvikuningas",
+      "team": "AWISAVI",
+      "entry_kills": 2,
+      "entry_kill_round_wins": 2,
+      "entry_kill_win_pct": 100.0,
+      "entry_deaths": 3,
+      "entry_death_round_wins": 2,
+      "entry_death_win_pct": 66.7
+    }
+  ],
+  "matches": [
+    {
+      "matchid": 8,
+      "rounds": 21,
+      "score": {
+        "SVEN": 13,
+        "AWISAVI": 8
+      },
+      "winner": "SVEN",
+      "rounds_detail": [
+        {
+          "round": 1,
+          "winner": "SVEN",
+          "kill": "SplashBrothers",
+          "death": "obune"
+        },
+        {
+          "round": 2,
+          "winner": "SVEN",
+          "kill": "SplashBrothers",
+          "death": "MFINGJONES"
+        },
+        {
+          "round": 3,
+          "winner": "SVEN",
+          "kill": "Honeybadger",
+          "death": "lokenslok"
+        },
+        {
+          "round": 4,
+          "winner": "AWISAVI",
+          "kill": "Lõvikuningas",
+          "death": "Honeybadger"
+        },
+        {
+          "round": 5,
+          "winner": "AWISAVI",
+          "kill": "obune",
+          "death": "Karlashnikov"
+        },
+        {
+          "round": 6,
+          "winner": "AWISAVI",
+          "kill": "lokenslok",
+          "death": "raidukas1337"
+        },
+        {
+          "round": 7,
+          "winner": "AWISAVI",
+          "kill": "kaneelirull",
+          "death": "raidukas1337"
+        },
+        {
+          "round": 8,
+          "winner": "AWISAVI",
+          "kill": "lokenslok",
+          "death": "SplashBrothers"
+        },
+        {
+          "round": 9,
+          "winner": "SVEN",
+          "kill": "obune",
+          "death": "raidukas1337"
+        },
+        {
+          "round": 10,
+          "winner": "SVEN",
+          "kill": "Rahvuslind",
+          "death": "lokenslok"
+        },
+        {
+          "round": 11,
+          "winner": "SVEN",
+          "kill": "Honeybadger",
+          "death": "kaneelirull"
+        },
+        {
+          "round": 12,
+          "winner": "SVEN",
+          "kill": "raidukas1337",
+          "death": "MFINGJONES"
+        },
+        {
+          "round": 13,
+          "winner": "SVEN",
+          "kill": "lokenslok",
+          "death": "Rahvuslind"
+        },
+        {
+          "round": 14,
+          "winner": "SVEN",
+          "kill": "obune",
+          "death": "Honeybadger"
+        },
+        {
+          "round": 15,
+          "winner": "SVEN",
+          "kill": "raidukas1337",
+          "death": "Lõvikuningas"
+        },
+        {
+          "round": 16,
+          "winner": "AWISAVI",
+          "kill": "Lõvikuningas",
+          "death": "Rahvuslind"
+        },
+        {
+          "round": 17,
+          "winner": "SVEN",
+          "kill": "obune",
+          "death": "Karlashnikov"
+        },
+        {
+          "round": 18,
+          "winner": "AWISAVI",
+          "kill": "MFINGJONES",
+          "death": "Rahvuslind"
+        },
+        {
+          "round": 19,
+          "winner": "SVEN",
+          "kill": "Rahvuslind",
+          "death": "MFINGJONES"
+        },
+        {
+          "round": 20,
+          "winner": "AWISAVI",
+          "kill": "Honeybadger",
+          "death": "Lõvikuningas"
+        },
+        {
+          "round": 21,
+          "winner": "SVEN",
+          "kill": "Rahvuslind",
+          "death": "obune"
+        }
+      ]
+    },
+    {
+      "matchid": 18,
+      "rounds": 22,
+      "score": {
+        "SVEN": 13,
+        "AWISAVI": 9
+      },
+      "winner": "SVEN",
+      "rounds_detail": [
+        {
+          "round": 1,
+          "winner": "SVEN",
+          "kill": "Honeybadger",
+          "death": "lokenslok"
+        },
+        {
+          "round": 2,
+          "winner": "SVEN",
+          "kill": "Rahvuslind",
+          "death": "lokenslok"
+        },
+        {
+          "round": 3,
+          "winner": "SVEN",
+          "kill": "raidukas1337",
+          "death": "MFINGJONES"
+        },
+        {
+          "round": 4,
+          "winner": "AWISAVI",
+          "kill": "kaneelirull",
+          "death": "Karlashnikov"
+        },
+        {
+          "round": 5,
+          "winner": "AWISAVI",
+          "kill": "SplashBrothers",
+          "death": "kaneelirull"
+        },
+        {
+          "round": 6,
+          "winner": "AWISAVI",
+          "kill": "kaneelirull",
+          "death": "Karlashnikov"
+        },
+        {
+          "round": 7,
+          "winner": "SVEN",
+          "kill": "Honeybadger",
+          "death": "lokenslok"
+        },
+        {
+          "round": 8,
+          "winner": "AWISAVI",
+          "kill": "kaneelirull",
+          "death": "SplashBrothers"
+        },
+        {
+          "round": 9,
+          "winner": "AWISAVI",
+          "kill": "obune",
+          "death": "raidukas1337"
+        },
+        {
+          "round": 10,
+          "winner": "SVEN",
+          "kill": "Honeybadger",
+          "death": "MFINGJONES"
+        },
+        {
+          "round": 11,
+          "winner": "AWISAVI",
+          "kill": "Karlashnikov",
+          "death": "MFINGJONES"
+        },
+        {
+          "round": 12,
+          "winner": "SVEN",
+          "kill": "raidukas1337",
+          "death": "MFINGJONES"
+        },
+        {
+          "round": 13,
+          "winner": "AWISAVI",
+          "kill": "Karlashnikov",
+          "death": "Lõvikuningas"
+        },
+        {
+          "round": 14,
+          "winner": "AWISAVI",
+          "kill": "raidukas1337",
+          "death": "obune"
+        },
+        {
+          "round": 15,
+          "winner": "SVEN",
+          "kill": "MFINGJONES",
+          "death": "Honeybadger"
+        },
+        {
+          "round": 16,
+          "winner": "SVEN",
+          "kill": "Karlashnikov",
+          "death": "kaneelirull"
+        },
+        {
+          "round": 17,
+          "winner": "SVEN",
+          "kill": "Karlashnikov",
+          "death": "lokenslok"
+        },
+        {
+          "round": 18,
+          "winner": "AWISAVI",
+          "kill": "raidukas1337",
+          "death": "MFINGJONES"
+        },
+        {
+          "round": 19,
+          "winner": "SVEN",
+          "kill": "Karlashnikov",
+          "death": "MFINGJONES"
+        },
+        {
+          "round": 20,
+          "winner": "SVEN",
+          "kill": "Honeybadger",
+          "death": "obune"
+        },
+        {
+          "round": 21,
+          "winner": "SVEN",
+          "kill": "Karlashnikov",
+          "death": "kaneelirull"
+        },
+        {
+          "round": 22,
+          "winner": "SVEN",
+          "kill": "MFINGJONES",
+          "death": "SplashBrothers"
+        }
+      ]
+    }
+  ]
+}

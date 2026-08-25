@@ -633,9 +633,11 @@
             </div>
             <div class="note" style="margin-top: 14px">
               Click any column header to sort; gold values lead the field.
-              <b>Entry%</b> is entry duels won of duels taken, <b>Clutch</b> is
-              kills recorded as the last man alive, and <b>Acc%</b> is shots on
-              target of shots fired.
+              <b>Entry%</b> is entry duels won of duels taken, <b>EK&rarr;W%</b>
+              is rounds won after their opening kill, <b>INV&rarr;W%</b> is
+              rounds won whenever they were in the opening duel at all — see
+              Section 04. <b>Clutch</b> is kills recorded as the last man alive,
+              and <b>Acc%</b> is shots on target of shots fired.
             </div>
 
             <div class="subhead">Player cards</div>
@@ -703,12 +705,142 @@
           </div>
         </section>
 
+        <!-- =========================== ENTRY DUELS =========================== -->
+        <section id="entry" class="section">
+          <div class="wrap">
+            <div class="section-head">
+              <div>
+                <div class="eyebrow">Section 04</div>
+                <h2>Entry duels</h2>
+              </div>
+              <p>
+                What first blood is actually worth — per map, and per player.
+                Every round opens with one kill and one death, so each duel puts
+                two players on the hook for the same round.
+              </p>
+            </div>
+
+            <div class="grid cols-3" style="margin-top: 16px">
+              <div class="tile gold">
+                <div class="k">Opening kill wins the round</div>
+                <div class="v">{{ entry.pct }}<small>%</small></div>
+                <div class="d">
+                  <b>{{ entry.converted }} of {{ entry.entries }}</b> opening kills
+                  turned into a round win
+                </div>
+              </div>
+              <div class="tile">
+                <div class="k">First blood matters most</div>
+                <div class="v">{{ entry.best.pct }}<small>%</small></div>
+                <div class="d">
+                  <b>{{ prettyMap(entry.best.map) }}</b> — and least on
+                  {{ prettyMap(entry.worst.map) }} at {{ entry.worst.pct }}%,
+                  a coin flip
+                </div>
+              </div>
+              <div class="tile">
+                <div class="k">Neither team owns it</div>
+                <div class="v">{{ entry.teams.SVEN }}<small>%</small></div>
+                <div class="d">
+                  SVEN convert their entries; AWISAVI are at
+                  <b>{{ entry.teams.AWISAVI }}%</b> — the spread here is
+                  individual, not a team effect
+                </div>
+              </div>
+            </div>
+
+            <div class="subhead">Opening-kill conversion by map</div>
+            <div class="panel">
+              <div class="panel-title">
+                Share of rounds won by the side that drew first blood
+              </div>
+              <e-chart :option="entryMapOption" :height="380" />
+            </div>
+            <div class="note" style="margin-top: 14px">
+              Green clears 70%, red falls under 60%, and the dashed line is the
+              LAN average. {{ prettyMap(entry.best.map) }} and
+              {{ prettyMap(entry.worst.map) }} are single maps of 20–24 rounds,
+              so treat those extremes as thin.
+            </div>
+
+            <div class="subhead">Player entry impact</div>
+            <div class="panel">
+              <div class="panel-title">
+                Gold counts only their opening kills; blue counts every opening
+                duel they were in, won or lost
+              </div>
+              <e-chart :option="entryImpactOption" :height="440" />
+            </div>
+            <div class="note" style="margin-top: 14px">
+              Because every duel has a killer and a victim and exactly one side
+              wins the round, the blue column is zero-sum across the lobby and
+              lands on exactly <b>50%</b> LAN-wide — so it reads straight off as
+              above or below par. Gold flatters anyone who only gets measured on
+              the duels they win; blue charges them for the ones they lose. Two
+              rounds have no opening kill on record, so the denominator is
+              {{ entry.entries }} rather than {{ meta.roundsTotal }}.
+            </div>
+
+            <div class="table-scroll" style="margin-top: 22px">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Player</th>
+                    <th>Team</th>
+                    <th title="Opening kills taken">EK</th>
+                    <th title="Rounds won after their opening kill">EK WON</th>
+                    <th title="Rounds won after their opening kill, as a %">EK&rarr;W%</th>
+                    <th title="Times this player was the opening death">ED</th>
+                    <th title="Rounds the team won anyway after this player was opened up">ED WON</th>
+                    <th title="Rounds won despite this player dying first, as a %">ED&rarr;W%</th>
+                    <th title="Total opening duels this player was in">DUELS</th>
+                    <th title="Rounds won across every opening duel they were in">WON</th>
+                    <th title="Rounds won when involved in the opening duel at all — 50% is par">INV&rarr;W%</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="p in [...entryImpact].reverse()" :key="p.name">
+                    <td>
+                      <span class="tname">
+                        <img class="av xs" :src="avatar(p)" :alt="p.name" loading="lazy" />
+                        {{ p.name }}
+                      </span>
+                    </td>
+                    <td>
+                      <span class="pill" :class="p.team.toLowerCase()">{{ p.team }}</span>
+                    </td>
+                    <td>{{ p.entryKills }}</td>
+                    <td>{{ p.entryKillWins }}</td>
+                    <td :style="{ color: p.entryKillWinPct >= entry.pct ? '#45e08a' : '#ff4d6a' }">
+                      {{ p.entryKillWinPct.toFixed(1) }}
+                    </td>
+                    <td>{{ p.entryDeaths }}</td>
+                    <td>{{ p.entryDeathWins }}</td>
+                    <td>{{ p.entryDeathWinPct.toFixed(1) }}</td>
+                    <td>{{ p.entryDuels }}</td>
+                    <td>{{ p.entryRoundWins }}</td>
+                    <td :style="{ color: p.entryRoundWinPct >= 50 ? '#45e08a' : '#ff4d6a' }">
+                      <b>{{ p.entryRoundWinPct.toFixed(1) }}</b>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="note" style="margin-top: 14px">
+              <b>EK&rarr;W%</b> is coloured against the {{ entry.pct }}% LAN
+              average, <b>INV&rarr;W%</b> against the 50% par. Both columns are
+              also in the main leaderboard in Section 03, where you can sort them
+              against everything else.
+            </div>
+          </div>
+        </section>
+
         <!-- ============================ MATCHES ============================ -->
         <section id="matches" class="section">
           <div class="wrap">
             <div class="section-head">
               <div>
-                <div class="eyebrow">Section 04</div>
+                <div class="eyebrow">Section 05</div>
                 <h2>All matches</h2>
               </div>
               <p>

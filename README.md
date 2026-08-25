@@ -10,13 +10,14 @@ within 17 damage of each other across the whole event.
 
 ## The site
 
-A single static page split into four sections:
+A single static page split into five sections:
 
 | Section      | What's in it                                                                                                                  |
 | ------------ | ----------------------------------------------------------------------------------------------------------------------------- |
 | **Overview** | Final result, headline stats, LAN MVP, K/D podium, and 16 records & oddities                                                    |
 | **Teams**    | Head-to-head totals, map records, per-map progression charts, round differential, side balance, best and worst maps            |
-| **Players**  | 18-metric ranked comparison, two-stat scatter, multi-select radar, clutch & duel records, weapon specialists, sortable table   |
+| **Players**  | 20-metric ranked comparison, two-stat scatter, multi-select radar, clutch & duel records, weapon specialists, sortable table   |
+| **Entry duels** | Opening-kill conversion per map, and per player: rounds won after their entry kill vs. rounds won whenever they were in the opening duel |
 | **Matches**  | All 15 maps with scores, halves and starting sides; expand any card for its full scoreboard                                    |
 
 Built with Vue 3 and ECharts loaded from CDN. **No build step and no
@@ -49,6 +50,7 @@ All asset paths are relative, so the site works from a subpath like
 ```
 consolidated_player_stats.json   LAN-wide totals, ~40 stats per player
 match_scoreboards/               one file per map (15), per-player scoreboards
+entry_stats/                     opening-duel data per map, down to round detail
 player_avatars/                  Steam avatars, named <steamid64>.png
 
 site/
@@ -64,8 +66,9 @@ tools/
 
 ## Regenerating the data
 
-`site/js/data.js` is derived from `consolidated_player_stats.json` and
-`match_scoreboards/*.json`. After changing either, run:
+`site/js/data.js` is derived from `consolidated_player_stats.json`,
+`match_scoreboards/*.json` and `entry_stats/de_*.json`. After changing any of
+them, run:
 
 ```bash
 python3 tools/build_data.py
@@ -89,8 +92,13 @@ are worth knowing:
   appear as comparisons rather than trends. The per-map series are limited to
   kills, deaths, assists, ADR, headshot % and utility damage.
 
-Two derived metrics are worth spelling out, since the raw data doesn't contain
-them:
+The **entry-duel numbers come from `entry_stats/`**, which records the opening
+kill and opening death of every round. Two rounds (`de_cache` m14 r2,
+`de_inferno` m10 r12) have no opening kill on record, so entry percentages use
+340 as the denominator rather than 342.
+
+Three derived metrics are worth spelling out, since the raw data doesn't
+contain them:
 
 - **Consistency** ("Mr Consistency" / "Most streaky") ranks players by the
   coefficient of variation of their per-map ADR — the standard deviation
@@ -98,3 +106,9 @@ them:
   simply favour players with lower output and therefore less room to vary.
 - **LAN MVP** is the ADR leader, which is not the same person as the player
   with the most MVP *rounds*. Both are shown.
+- **Entry impact** (`INV→W%`) is rounds won across every opening duel a player
+  was in, won or lost — not just the ones they won. Because each duel has one
+  killer and one victim and exactly one side takes the round, it is zero-sum
+  across the lobby and sits at exactly 50% LAN-wide, so it reads directly as
+  above or below par. The companion `EK→W%` counts only their opening kills
+  and is measured against the 67.4% LAN average.

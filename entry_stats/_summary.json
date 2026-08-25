@@ -1,0 +1,56 @@
+[
+  {
+    "map": "de_ancient",
+    "matches_played": 1,
+    "rounds": 28,
+    "opening_kill_conversion_pct": 64.3
+  },
+  {
+    "map": "de_anubis",
+    "matches_played": 1,
+    "rounds": 20,
+    "opening_kill_conversion_pct": 50.0
+  },
+  {
+    "map": "de_cache",
+    "matches_played": 2,
+    "rounds": 47,
+    "opening_kill_conversion_pct": 67.4
+  },
+  {
+    "map": "de_dust2",
+    "matches_played": 2,
+    "rounds": 43,
+    "opening_kill_conversion_pct": 72.1
+  },
+  {
+    "map": "de_inferno",
+    "matches_played": 3,
+    "rounds": 69,
+    "opening_kill_conversion_pct": 60.3
+  },
+  {
+    "map": "de_mirage",
+    "matches_played": 2,
+    "rounds": 48,
+    "opening_kill_conversion_pct": 58.3
+  },
+  {
+    "map": "de_nuke",
+    "matches_played": 2,
+    "rounds": 40,
+    "opening_kill_conversion_pct": 72.5
+  },
+  {
+    "map": "de_overpass",
+    "matches_played": 1,
+    "rounds": 24,
+    "opening_kill_conversion_pct": 83.3
+  },
+  {
+    "map": "de_train",
+    "matches_played": 1,
+    "rounds": 23,
+    "opening_kill_conversion_pct": 91.3
+  }
+]
